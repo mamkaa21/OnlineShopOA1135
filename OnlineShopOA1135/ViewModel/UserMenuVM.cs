@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OnlineShopOA1135.ViewModel
 {
-    internal class UserMenuVM
+    public class UserMenuVM
     {
     }
 }
