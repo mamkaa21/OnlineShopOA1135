@@ -1,11 +1,11 @@
-﻿<Window x:Class="OnlineShopOA1135.View.MainWindow"
+﻿<Window x:Class="OnlineShopOA1135.View.EnterWin"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OnlineShopOA1135.View"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="EnterWin" Height="450" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -21,8 +21,10 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Label Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Content="Добро пожаловать!" FontSize="30" HorizontalAlignment="Center"  />
-        <Button Grid.Column="3" Grid.Row="3" Content="Вход" FontSize="20"  Background="White" HorizontalAlignment="Left" BorderBrush="White" Command="{Binding EnterWinOpen}"/>
-        <Button Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2" Content="Регистрация" FontSize="20" Background="White" HorizontalAlignment="Center" BorderBrush="White" Command="{Binding RegisterWinOpen}"/>
+        <Label Grid.Column="1" Grid.Row="1" Content="Login" FontSize="25"  HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <TextBox Text="{Binding Login}" Grid.Column="2" Grid.Row="1" Margin="0 20 0 20"/>
+        <Label Grid.Column="1" Grid.Row="2" Content="Password"  FontSize="25"  HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <PasswordBox x:Name="passwordBox" Grid.Column="2" Grid.Row="2" Margin="0 20 0 20" />
+        <Button Grid.Column="2" Grid.Row="3" Content="Войти" FontSize="30"  Margin="20"  Command="{Binding Enter}"/>
     </Grid>
 </Window>

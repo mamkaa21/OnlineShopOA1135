@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace OnlineShopOA1135.Model;
-
-public partial class Category
+namespace OnlineShopOA1135.Model
 {
-    public int Id { get; set; }
+    public partial class Category
+    {
+        public int Id { get; set; }
 
-    public string? Title { get; set; }
+        public string? Title { get; set; }
+
+        public virtual ICollection<Good> Goods { get; set; } = new List<Good>();
+    }
 }

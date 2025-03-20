@@ -15,15 +15,13 @@ using System.Windows.Shapes;
 namespace OnlineShopOA1135.View
 {
     /// <summary>
-    /// Логика взаимодействия для UserMenu.xaml
+    /// Логика взаимодействия для EnterWin.xaml
     /// </summary>
-    public partial class UserMenu : Window
+    public partial class EnterWin : Window
     {
-        public UserMenu()
+        public EnterWin()
         {
             InitializeComponent();
         }
-
-      
     }
 }
