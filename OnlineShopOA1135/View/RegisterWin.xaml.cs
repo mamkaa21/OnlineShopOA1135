@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using OnlineShopOA1135.ViewModel;
 
 namespace OnlineShopOA1135.View
 {
@@ -22,6 +23,7 @@ namespace OnlineShopOA1135.View
         public RegisterWin()
         {
             InitializeComponent();
+            ((RegisterWnVM)this.DataContext).SetWindow(this);
         }
     }
 }

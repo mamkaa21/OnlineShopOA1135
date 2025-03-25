@@ -8,7 +8,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using OnlineShopOA1135.Model;
+using OnlineShopOA1135.ViewModel;
+
 
 namespace OnlineShopOA1135.View
 {
@@ -20,6 +21,7 @@ namespace OnlineShopOA1135.View
         public MainWindow()
         {
             InitializeComponent();
+            ((MainWinVM)this.DataContext).SetWindow(this);
         }
     }
 }

@@ -4,8 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OnlineShopOA1135.View"
+        xmlns:m="clr-namespace:OnlineShopOA1135.Model"
+        xmlns:vm ="clr-namespace:OnlineShopOA1135.ViewModel"
         mc:Ignorable="d"
+        DataContext="{DynamicResource vm}"
         Title="RegisterWin" Height="450" Width="800">
+    <Window.Resources>
+        <vm:RegisterWnVM x:Key ="vm"/>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -30,6 +36,6 @@
         <TextBox Text="{Binding Login}" Grid.ColumnSpan="2" Grid.Column="3" Grid.Row="2" Margin="0 20 0 20"/>
         <Label Grid.Column="2" Grid.Row="3"  Content="Password"  FontSize="25"  HorizontalAlignment="Right" VerticalAlignment="Center"/>
         <PasswordBox x:Name="passwordBox" Grid.ColumnSpan="2" Grid.Column="3" Grid.Row="3" Margin="0 20 0 20" />
-        <Button Grid.Column="3" Grid.Row="5" Grid.ColumnSpan="2" Content="Войти" FontSize="30" Margin="10" Command="{Binding Enter}"/>
+        <Button Grid.Column="3" Grid.Row="5" Grid.ColumnSpan="2" Content="Войти" FontSize="30" Margin="10" Command="{Binding EnterWinOpen}"/>
     </Grid>
 </Window>

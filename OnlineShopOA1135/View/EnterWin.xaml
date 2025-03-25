@@ -4,8 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OnlineShopOA1135.View"
+        xmlns:m="clr-namespace:OnlineShopOA1135.Model"
+        xmlns:vm ="clr-namespace:OnlineShopOA1135.ViewModel"
         mc:Ignorable="d"
+        DataContext="{DynamicResource vm}"
         Title="EnterWin" Height="450" Width="800">
+    <Window.Resources>
+        <vm:EnterWinVM x:Key ="vm"/>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -13,6 +19,8 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
+            <ColumnDefinition/>
+          
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -20,11 +28,13 @@
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
-        <Label Grid.Column="1" Grid.Row="1" Content="Login" FontSize="25"  HorizontalAlignment="Right" VerticalAlignment="Center"/>
-        <TextBox Text="{Binding Login}" Grid.Column="2" Grid.Row="1" Margin="0 20 0 20"/>
-        <Label Grid.Column="1" Grid.Row="2" Content="Password"  FontSize="25"  HorizontalAlignment="Right" VerticalAlignment="Center"/>
-        <PasswordBox x:Name="passwordBox" Grid.Column="2" Grid.Row="2" Margin="0 20 0 20" />
-        <Button Grid.Column="2" Grid.Row="3" Content="Войти" FontSize="30"  Margin="20"  Command="{Binding Enter}"/>
+        <Label Grid.Column="1" Grid.Row="2" Content="Login" FontSize="25"  HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <TextBox Text="{Binding Login}" Grid.ColumnSpan="2" Grid.Column="2" Grid.Row="2" Margin="0 20 0 20"/>
+        <Label Grid.Column="1" Grid.Row="3"  Content="Password"  FontSize="25"  HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <PasswordBox x:Name="passwordBox" Grid.ColumnSpan="2" Grid.Column="2" Grid.Row="3" Margin="0 20 0 20" />
+        <Button Grid.Column="2" Grid.Row="5" Grid.ColumnSpan="2" Content="Войти" FontSize="30" Margin="10" Command="{Binding Enter}"/>
     </Grid>
 </Window>
