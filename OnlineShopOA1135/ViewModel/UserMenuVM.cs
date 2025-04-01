@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OnlineShopOA1135.Model;
+using OnlineShopOA1135.View;
 
 
 namespace OnlineShopOA1135.ViewModel
@@ -15,7 +16,9 @@ namespace OnlineShopOA1135.ViewModel
         {
             BasketWinOpen = new Command (() =>
             { 
-                
+                BasketWin basketWin = new BasketWin();
+                basketWin.Show();
+                Signal();
             });
 
 
