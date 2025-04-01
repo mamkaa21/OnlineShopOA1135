@@ -9,7 +9,7 @@ namespace OnlineShopOA1135.ViewModel
 {
     public class EnterWinVM
     {
-        EnterWinVM()
+        public EnterWinVM()
         {
 
         }

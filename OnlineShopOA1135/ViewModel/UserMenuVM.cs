@@ -11,17 +11,22 @@ namespace OnlineShopOA1135.ViewModel
 {
     public class UserMenuVM : BaseVM
     {
-      public Command BasketWinOpen { get; }
-        public UserMenuVM() 
+        public Command BasketWinOpen { get; }
+        public Command UserWinOpen { get; }
+        public UserMenuVM()
         {
-            BasketWinOpen = new Command (() =>
-            { 
+            BasketWinOpen = new Command(() =>
+            {
                 BasketWin basketWin = new BasketWin();
                 basketWin.Show();
                 Signal();
             });
-
-
+            UserWinOpen = new Command(() =>
+            {
+                UserWin userWin = new UserWin();
+                userWin.Show();
+                Signal();
+            });
         }
     }
 }

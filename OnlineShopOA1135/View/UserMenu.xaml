@@ -26,8 +26,20 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <ListBox Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="4" Grid.RowSpan="6">
-            
+        <ListBox Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="4" Grid.RowSpan="6" ScrollViewer.VerticalScrollBarVisibility="Visible">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel /> 
+                    <!--тут ничего не трогать!!!-->
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <!--тут написать внутренность товара-->
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
         </ListBox>
         <Label Content="logo" FontSize="33"/>
         <Button Content="home" Grid.Row="1" Background="White" BorderThickness="0"/>
@@ -44,7 +56,7 @@
         </ListBox>
         <TextBox Grid.Column="1" Grid.ColumnSpan="3" />
         <Button Content="🔍" Grid.Column="4" Background="White" FontSize="40" BorderThickness="0"/>
-        <Button Content="👤"  Grid.Column="6" Background="White" FontSize="40" BorderThickness="0"/>
+        <Button Content="👤"  Grid.Column="6" Background="White" FontSize="40" BorderThickness="0" Command="{Binding UserWinOpen}"/>
         <Button  Grid.Column="5" Background="White" Command="{Binding BasketWinOpen}" BorderThickness="0">
             <StackPanel>
                 <TextBlock Text="🛒" FontSize="40"/>

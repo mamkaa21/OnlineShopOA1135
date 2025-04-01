@@ -9,7 +9,7 @@ namespace OnlineShopOA1135.ViewModel
 {
     public class RegisterWnVM
     {
-        RegisterWnVM() 
+        public RegisterWnVM() 
         {
         
         }

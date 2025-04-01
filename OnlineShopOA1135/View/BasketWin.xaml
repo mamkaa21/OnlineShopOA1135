@@ -7,6 +7,33 @@
         mc:Ignorable="d"
         Title="BasketWin" Height="450" Width="800">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Label Content="Logo" FontSize="40"/>
         
+        <ListBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Grid.RowSpan="5" ScrollViewer.VerticalScrollBarVisibility="Visible">
+          
+        </ListBox>
+        
+        <Button Grid.Column="1" Grid.Row="6" Content="delete" Background="White"/>
+        <Button Grid.Column="3" Grid.Row="6" Content="заказать" Background="White"/>
+
+        <Button Content="home" Grid.Row="1" Background="White" Command="{Binding UserMenuOpen}"/>
+        <Button Content="prfl" Grid.Column="4" Background="White" Command="{Binding UserWinOpen}"/>
     </Grid>
 </Window>
