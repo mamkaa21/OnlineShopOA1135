@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using OnlineShopOA1135.Model;
 using Pomelo.EntityFrameworkCore.MySql.Scaffolding.Internal;
 
 namespace OnlineShopOA1135;
@@ -31,7 +30,7 @@ public partial class OnlineShopOa1135Context : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseMySql("server=192.168.200.13;database=OnlineShopOA1135;user=student;password=student", Microsoft.EntityFrameworkCore.ServerVersion.Parse("10.3.39-mariadb"));
+        => optionsBuilder.UseMySql("server=95.154.107.102;database=OnlineShopOA1135;user=student;password=student", Microsoft.EntityFrameworkCore.ServerVersion.Parse("10.3.39-mariadb"));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -82,7 +81,9 @@ public partial class OnlineShopOa1135Context : DbContext
 
             entity.Property(e => e.Id).HasColumnType("int(11)");
             entity.Property(e => e.CountProduct).HasColumnType("int(11)");
-            entity.Property(e => e.PriceProduct).HasPrecision(10);
+            entity.Property(e => e.DateCreated).HasColumnType("datetime");
+            entity.Property(e => e.DateStatusUpdated).HasColumnType("datetime");
+            entity.Property(e => e.Status).HasMaxLength(45);
             entity.Property(e => e.UserId)
                 .HasColumnType("int(11)")
                 .HasColumnName("User_Id");

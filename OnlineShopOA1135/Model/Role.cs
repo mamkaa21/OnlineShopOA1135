@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace OnlineShopOA1135.Model
+namespace OnlineShopOA1135.Model;
+
+public partial class Role
 {
-    public partial class Role
-    {
-        public int Id { get; set; }
+    public int Id { get; set; }
 
-        public string? Title { get; set; }
+    public string? Title { get; set; }
 
-        public virtual ICollection<User> Users { get; set; } = new List<User>();
-    }
+    public virtual ICollection<User> Users { get; set; } = new List<User>();
 }
