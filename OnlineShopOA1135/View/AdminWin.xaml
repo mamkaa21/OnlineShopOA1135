@@ -45,6 +45,7 @@
         <Button Content="order" Grid.Column="1" Background="White" Command="{Binding OrderWinOpen}"/>
 
         <Button Content="create" Grid.Row="3" Background="White" Command="{Binding CreateWinOpen}"/>
+
         <Button Content="edit" Grid.Row="4" Background="White" Command="{Binding EditWinOpen}"/>
         <Button Content="delete" Grid.Row="5" Background="White" Command="{Binding DeleteGoods}"/>
         
