@@ -23,15 +23,51 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <ListBox Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="3" Grid.RowSpan="6">
-
+        <ListBox Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="4" Grid.RowSpan="6" ScrollViewer.VerticalScrollBarVisibility="Visible">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel />
+                    <!--тут ничего не трогать!!!-->
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <!--тут написать внутренность товара-->
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
         </ListBox>
         <Label Content="logo" FontSize="33"/>
-        <Button Grid.Column="3" Content="crud" Background="White"/>
-        <Button Content="home" Grid.Row="1" Background="White"/>
-        <Button Content="ctgr" Grid.Row="2" Background="White"/>
-        <Button Content="prfl" Grid.Column="4" Background="White"/>
-       
+        <Button Content="order" Grid.Column="1" Background="White" Command="{Binding OrderWinOpen}"/>
+
+        <Button Content="create" Grid.Row="3" Background="White" Command="{Binding CreateWinOpen}"/>
+        <Button Content="edit" Grid.Row="4" Background="White" Command="{Binding EditWinOpen}"/>
+        <Button Content="delete" Grid.Row="5" Background="White" Command="{Binding DeleteGoods}"/>
+        
+        <ListBox Grid.Row="2" Grid.Column="5" Grid.ColumnSpan="2" Grid.RowSpan="3" >
+            <CheckBox Content="fff"/>
+            <CheckBox/>
+            <CheckBox/>
+            <CheckBox/>
+            <CheckBox/>
+            <CheckBox/>
+            <CheckBox/>
+            <CheckBox/>
+        </ListBox>
+        <Button Grid.Column="5" Grid.Row="5" Content="delete" Background="White" Command="{Binding DeleteCategory}"/>
+        <Button Grid.Column="6" Grid.Row="5" Content="+" FontSize="20" Background="White" Command="{Binding CreateWinOpen}"/>
+        
+        <TextBox Grid.Column="2" Grid.ColumnSpan="3" />
+        <Button Content="🔍" Grid.Column="5" Background="White" FontSize="40" BorderThickness="0" Command="{Binding FindGoodsByTitle}"/>
+        
+        <Button Content="👤"  Grid.Column="6" Background="White" FontSize="40" BorderThickness="0" Command="{Binding UserWinOpen}"/>
+        
+        <Button Grid.Column="1" Grid.Row="7" Content="⬅" Background="White" FontSize="40" />
+        <Button Grid.Column="4" Grid.Row="7" Content="-->" Background="White" FontSize="30" />
+
     </Grid>
 </Window>
