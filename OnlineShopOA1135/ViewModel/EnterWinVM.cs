@@ -9,8 +9,13 @@ namespace OnlineShopOA1135.ViewModel
 {
     public class EnterWinVM
     {
+        public Command Enter {  get; }
         public EnterWinVM()
         {
+            Enter = new Command(() =>
+            {
+
+            });
 
         }
         EnterWin enterWindow;
