@@ -67,8 +67,8 @@
         
         <Button Content="👤"  Grid.Column="6" Background="White" FontSize="40" BorderThickness="0" Command="{Binding UserWinOpen}"/>
         
-        <Button Grid.Column="1" Grid.Row="7" Content="⬅" Background="White" FontSize="40" />
-        <Button Grid.Column="4" Grid.Row="7" Content="-->" Background="White" FontSize="30" />
+        <Button Grid.Column="1" Grid.Row="7" Content="←" Background="White" FontSize="40" />
+        <Button Grid.Column="4" Grid.Row="7" Content="→" Background="White" FontSize="40" />
 
     </Grid>
 </Window>

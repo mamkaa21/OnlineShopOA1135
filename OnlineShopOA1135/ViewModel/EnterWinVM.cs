@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography.Xml;
 using System.Text;
@@ -16,7 +17,7 @@ namespace OnlineShopOA1135.ViewModel
 {
     public class EnterWinVM : BaseVM
     {
-        public User User { get; set; }
+        public User User { get; set; } = new();
         public Command Enter { get; }
         public EnterWinVM()
         {
@@ -34,7 +35,8 @@ namespace OnlineShopOA1135.ViewModel
 
                 if (responce.StatusCode == System.Net.HttpStatusCode.OK)
                 {
-                    if (User.RoleId == 1)
+                   var d= await responce.Content.ReadFromJsonAsync<UserModel>();
+                    if (d.RoleId == 1)
                     {
                         AdminWin adminWin = new AdminWin();
                         adminWin.Show();
