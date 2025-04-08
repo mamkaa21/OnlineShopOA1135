@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace OnlineShopOA1135;
+namespace OnlineShopOA1135.Model;
 
 public partial class OrderGoodsCross
 {
