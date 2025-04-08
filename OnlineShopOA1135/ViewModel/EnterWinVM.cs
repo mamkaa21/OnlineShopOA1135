@@ -14,9 +14,10 @@ namespace OnlineShopOA1135.ViewModel
         {
             Enter = new Command(() =>
             {
-
+                //запрос для входа + проверка на роль юзера? если роль 2 - окно юзера открывается
+                // если роль 1 - то окно админа
             });
-
+            
         }
         EnterWin enterWindow;
         internal void SetWindow(EnterWin enterWindow)

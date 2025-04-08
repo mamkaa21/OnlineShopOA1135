@@ -18,7 +18,7 @@ namespace OnlineShopOA1135.ViewModel
                 if (_httpClient == null)
                     _httpClient = new HttpClient
                     {
-                        BaseAddress = new Uri("")
+                        BaseAddress = new Uri("http://localhost:5051/api/")
                     };
                 return _httpClient;
             }
