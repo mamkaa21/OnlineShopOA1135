@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 using System.Windows;
 using OnlineShopOA1135.Model;
 using OnlineShopOA1135.View;
@@ -38,10 +35,10 @@ namespace OnlineShopOA1135.ViewModel
         public Command OrderWinOpen { get; }
         public Command CreateWinOpen { get; }
         public Command EditWinOpen { get; }
-        public Command DeleteGoods {  get; }
+        public Command DeleteGoods { get; }
         public Command FindGoodsByTitle { get; }
         public Command UserWinOpen { get; }
-        public AdminWinVM() 
+        public AdminWinVM()
         {
             GetGoods();
             OrderWinOpen = new Command(() =>
@@ -50,48 +47,76 @@ namespace OnlineShopOA1135.ViewModel
                 orderWin.Show();
                 Signal();
             });
-            CreateWinOpen = new Command(() => 
-            { 
+            CreateWinOpen = new Command(() =>
+            {
                 CreateEditWin createEditWin = new CreateEditWin();
                 createEditWin.Show();
                 Signal();
             });
-            EditWinOpen = new Command(() => 
-            { 
+            EditWinOpen = new Command(() =>
+            {
+                if (Good != null)
+                {
+                    CreateEditWin createEditWin = new CreateEditWin();
+                    createEditWin.Show();
+                    Signal();
+                }
+                else
+                    MessageBox.Show("выберите обьект для редактирования");
                 //проверка что обьект не пустой и только тогда открыть окно
             });
-            DeleteGoods = new Command(() =>
+            DeleteGoods = new Command(async () =>
             {
                 //запрос на удаление товара + проверка, что товар не пустой
+                if (Good != null)
+                {
+                    string arg = JsonSerializer.Serialize(Good);
+                    var responce = await HttpClientS.HttpClient.PostAsync($"Admin/DeleteGoods", new StringContent(arg, Encoding.UTF8, "application/json"));
+
+                    if (responce.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                    {
+                        var result = await responce.Content.ReadAsStringAsync();
+                        MessageBox.Show("error");
+                        return;
+                    }
+                    if (responce.StatusCode == System.Net.HttpStatusCode.OK)
+                    {
+                        //мессаджбокс с подтверждением да нет хз как надо думать
+
+                        Signal(nameof(Good));
+                    }
+                }
+
+                    else
+                    MessageBox.Show("выберите обьект для удаления");
             });
-            FindGoodsByTitle = new Command(() => 
-            {
-                //запрос на поиск товара 
-            });
-            UserWinOpen = new Command(() => 
-            { 
-                UserWin userWin = new UserWin();
-                userWin.Show();
-                Signal();
-            });
+FindGoodsByTitle = new Command(() =>
+{
+    //запрос на поиск товара 
+});
+UserWinOpen = new Command(() =>
+{
+    UserWin userWin = new UserWin();
+    userWin.Show();
+    Signal();
+});
         }
         public async void GetGoods()
-        {
-            string arg = JsonSerializer.Serialize(Good);
-            var responce = await HttpClientS.HttpClient.GetAsync($"Admin/getGoods");
+{
+    string arg = JsonSerializer.Serialize(Good);
+    var responce = await HttpClientS.HttpClient.GetAsync($"Admin/getGoods");
 
-            if (responce.StatusCode == System.Net.HttpStatusCode.BadRequest)
-            {
-                var result = await responce.Content.ReadAsStringAsync();
-                MessageBox.Show(result);
-                return;
-            }
-            if (responce.StatusCode == System.Net.HttpStatusCode.OK)
-            {
-                MessageBox.Show("succes");
-                GoodList = await responce.Content.ReadFromJsonAsync<List<Good>>();
-                return;
-            }
-        }
+    if (responce.StatusCode == System.Net.HttpStatusCode.BadRequest)
+    {
+        var result = await responce.Content.ReadAsStringAsync();
+        MessageBox.Show(result);
+        return;
+    }
+    if (responce.StatusCode == System.Net.HttpStatusCode.OK)
+    {
+        GoodList = await responce.Content.ReadFromJsonAsync<List<Good>>();
+        return;
+    }
+}
     }
 }
