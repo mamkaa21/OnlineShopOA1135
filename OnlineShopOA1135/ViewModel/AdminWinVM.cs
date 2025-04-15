@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Json;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
+using System.Windows;
 using OnlineShopOA1135.Model;
 using OnlineShopOA1135.View;
 
@@ -10,6 +13,28 @@ namespace OnlineShopOA1135.ViewModel
 {
     public class AdminWinVM : BaseVM
     {
+        private Good good { get; set; }
+        public Good Good
+        {
+            get => good;
+            set
+            {
+                good = value;
+                Signal(nameof(Good));
+            }
+        }
+
+        private List<Good> goodList { get; set; }
+        public List<Good> GoodList
+        {
+            get => goodList;
+            set
+            {
+                goodList = value;
+                Signal(nameof(GoodList));
+            }
+        }
+
         public Command OrderWinOpen { get; }
         public Command CreateWinOpen { get; }
         public Command EditWinOpen { get; }
@@ -18,6 +43,7 @@ namespace OnlineShopOA1135.ViewModel
         public Command UserWinOpen { get; }
         public AdminWinVM() 
         {
+            GetGoods();
             OrderWinOpen = new Command(() =>
             {
                 OrderWin orderWin = new OrderWin();
@@ -49,6 +75,23 @@ namespace OnlineShopOA1135.ViewModel
                 Signal();
             });
         }
+        public async void GetGoods()
+        {
+            string arg = JsonSerializer.Serialize(Good);
+            var responce = await HttpClientS.HttpClient.GetAsync($"Admin/getGoods");
 
+            if (responce.StatusCode == System.Net.HttpStatusCode.BadRequest)
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show(result);
+                return;
+            }
+            if (responce.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                MessageBox.Show("succes");
+                GoodList = await responce.Content.ReadFromJsonAsync<List<Good>>();
+                return;
+            }
+        }
     }
 }

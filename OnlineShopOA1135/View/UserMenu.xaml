@@ -43,12 +43,11 @@
             <ListBox.ItemTemplate >
                 <DataTemplate >
                     <StackPanel Width="200">
-                            <TextBlock  Text="{Binding Title}"/>
+                        <TextBlock  Text="{Binding Title}"/>
+                        <Image Source="{Binding Image}" Width="200"/>
+                        <TextBlock Text="{Binding Description}"/>
                         <TextBlock  Text="{Binding Category.Title}"/>
-
-
-
-
+                        <TextBlock Text="{Binding Rating}"/>
 
                     </StackPanel>
                 </DataTemplate>
@@ -72,8 +71,8 @@
                 <TextBlock Text="{Binding CountProduct}"/>
             </StackPanel>
         </Button>
-        <Button Grid.Column="1" Grid.Row="7" Content="⬅" Background="White" FontSize="40" />
-        <Button Grid.Column="4" Grid.Row="7" Content="-->" Background="White" FontSize="30" />
+        <Button Grid.Column="1" Grid.Row="7" Content="←" Background="White" FontSize="40" />
+        <Button Grid.Column="4" Grid.Row="7" Content="→" Background="White" FontSize="30" />
 
     </Grid>
 </Window>
