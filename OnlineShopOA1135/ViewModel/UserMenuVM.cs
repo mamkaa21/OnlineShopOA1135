@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -69,6 +70,7 @@ namespace OnlineShopOA1135.ViewModel
             if (responce.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 MessageBox.Show("succes");
+              GoodList = await   responce.Content.ReadFromJsonAsync<List<Good>>();
                 return;
             }
         }

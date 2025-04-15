@@ -42,10 +42,15 @@
             </ListBox.ItemsPanel>
             <ListBox.ItemTemplate >
                 <DataTemplate >
-                    <Grid>
-                        <Label Content="dddd" FontSize="100"/>
-                        <!--тут написать внутренность товара-->
-                    </Grid>
+                    <StackPanel Width="200">
+                            <TextBlock  Text="{Binding Title}"/>
+                        <TextBlock  Text="{Binding Category.Title}"/>
+
+
+
+
+
+                    </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
