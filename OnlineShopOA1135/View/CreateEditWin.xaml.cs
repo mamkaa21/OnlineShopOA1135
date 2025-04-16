@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using OnlineShopOA1135.Model;
+using OnlineShopOA1135.ViewModel;
 
 namespace OnlineShopOA1135.View
 {
@@ -19,9 +21,11 @@ namespace OnlineShopOA1135.View
     /// </summary>
     public partial class CreateEditWin : Window
     {
-        public CreateEditWin()
+        public CreateEditWin(Good good)
         {
             InitializeComponent();
+            ((CreateEditWinVM)DataContext).Good = good;
+            (DataContext as CreateEditWinVM).SetWindow(this);
         }
     }
 }

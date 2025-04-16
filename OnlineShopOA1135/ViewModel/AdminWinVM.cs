@@ -43,7 +43,7 @@ namespace OnlineShopOA1135.ViewModel
             GetGoods();
             OrderWinOpen = new Command(() =>
             {
-                OrderWin orderWin = new OrderWin();
+                OrderWin orderWin = new OrderWin();            
                 orderWin.Show();
                 Signal();
             });
@@ -57,7 +57,7 @@ namespace OnlineShopOA1135.ViewModel
             {
                 if (Good != null)
                 {
-                    CreateEditWin createEditWin = new CreateEditWin();
+                    CreateEditWin createEditWin = new CreateEditWin(Good);
                     createEditWin.Show();
                     Signal();
                 }
@@ -86,37 +86,43 @@ namespace OnlineShopOA1135.ViewModel
                         Signal(nameof(Good));
                     }
                 }
-
-                    else
+                else
                     MessageBox.Show("выберите обьект для удаления");
             });
-FindGoodsByTitle = new Command(() =>
-{
-    //запрос на поиск товара 
-});
-UserWinOpen = new Command(() =>
-{
-    UserWin userWin = new UserWin();
-    userWin.Show();
-    Signal();
-});
+            FindGoodsByTitle = new Command(() =>
+            {
+                    //запрос на поиск товара 
+            });
+            UserWinOpen = new Command(() =>
+            {
+                UserWin userWin = new UserWin();
+                userWin.Show();
+                Signal();
+            });
         }
-        public async void GetGoods()
-{
-    string arg = JsonSerializer.Serialize(Good);
-    var responce = await HttpClientS.HttpClient.GetAsync($"Admin/getGoods");
 
-    if (responce.StatusCode == System.Net.HttpStatusCode.BadRequest)
-    {
-        var result = await responce.Content.ReadAsStringAsync();
-        MessageBox.Show(result);
-        return;
-    }
-    if (responce.StatusCode == System.Net.HttpStatusCode.OK)
-    {
-        GoodList = await responce.Content.ReadFromJsonAsync<List<Good>>();
-        return;
-    }
-}
+        public async void GetGoods()
+        {
+            string arg = JsonSerializer.Serialize(Good);
+            var responce = await HttpClientS.HttpClient.GetAsync($"Admin/getGoods");
+
+            if (responce.StatusCode == System.Net.HttpStatusCode.BadRequest)
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show(result);
+                return;
+            }
+            if (responce.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                GoodList = await responce.Content.ReadFromJsonAsync<List<Good>>();
+                return;
+            }
+        }
+
+        AdminWin adminWindow;
+        internal void SetWindow(AdminWin adminWindow)
+        {
+            this.adminWindow = adminWindow;
+        }
     }
 }

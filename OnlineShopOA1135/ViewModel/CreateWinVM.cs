@@ -5,9 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net.Http;
 using System.Net.Http.Json;
-using System.Runtime.CompilerServices;
+using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -15,20 +14,9 @@ using System.Windows;
 
 namespace OnlineShopOA1135.ViewModel
 {
-    internal class CreateEditWinVM : BaseVM
+    internal class CreateWinVM:BaseVM
     {
-        //public Good Good { get; set; } = new Good();
-
-        private Good good { get; set; }
-        public Good Good
-        {
-            get => good;
-            set
-            {
-                good = value;
-                Signal(nameof(Good));
-            }
-        }
+        public Good Good { get; set; } = new Good();
 
         private Category category { get; set; }
         public Category Category
@@ -57,9 +45,9 @@ namespace OnlineShopOA1135.ViewModel
         public Command AddGoods { get; }
 
         public Command UserWinOpen { get; }
-        public CreateEditWinVM()
+        public CreateWinVM(Good good)
         {
-            //Good = good;
+            Good = good;
             GetCategories();
 
             GetImageByFile = new Command(() =>
@@ -121,10 +109,11 @@ namespace OnlineShopOA1135.ViewModel
             }
         }
 
-        CreateEditWin createEditWin;
-        internal void SetWindow(CreateEditWin createEditWin)
+        CreateWin createWin;
+        internal void SetWindow(CreateWin createWin)
         {
-            this.createEditWin = createEditWin;
+            this.createWin = createWin;
         }
     }
 }
+
