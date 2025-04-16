@@ -45,9 +45,10 @@ namespace OnlineShopOA1135.ViewModel
         public Command GetImageByFile { get; }
         public Command AddGoods { get; }
 
-
-        public CreateEditWinVM()
+        public Command UserWinOpen { get; }
+        public CreateEditWinVM(Good good)
         {
+            Good = good;
             GetCategories();
 
             GetImageByFile = new Command(() =>
@@ -82,6 +83,12 @@ namespace OnlineShopOA1135.ViewModel
                     MessageBox.Show("ok");
                 }
 
+            });
+            UserWinOpen = new Command(() =>
+            {
+                UserWin userWin = new UserWin();
+                userWin.Show();
+                Signal();
             });
         }
 

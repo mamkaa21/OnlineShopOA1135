@@ -49,7 +49,7 @@ namespace OnlineShopOA1135.ViewModel
             });
             CreateWinOpen = new Command(() =>
             {
-                CreateEditWin createEditWin = new CreateEditWin();
+                CreateEditWin createEditWin = new CreateEditWin(new Good());
                 createEditWin.Show();
                 Signal();
             });
