@@ -64,10 +64,11 @@ DataContext="{DynamicResource vm}"
                     <ComboBox ItemsSource="{Binding CategoryList}" SelectedItem="{Binding Category}" DisplayMemberPath="{Binding Category.Title}" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="3"/>
 
                     <Label Grid.Column="3" Grid.Row="1" Content=" image"/>
-                    <Image Grid.Column="3" Grid.Row="2" Grid.RowSpan="5" Source="{Binding Good.Image}" Width="229" Stretch="Fill" Grid.ColumnSpan="2" Margin="52,0,37,50" />
+                    <Image Grid.Column="3" Grid.Row="2" Grid.RowSpan="5" Source="{Binding Good.Image}" Width="229" Stretch="Fill" Grid.ColumnSpan="2"  />
                     <Button Grid.Column="3" Grid.Row="6" Grid.ColumnSpan="2" Content="Выбрать картинку" Command="{Binding GetImageByFile}" HorizontalAlignment="Center" />
-                    
-                    <Button Grid.Column="1" Grid.Row="5"  Content=" ok" Command="{Binding AddGoods}"/>
+
+                    <Button Grid.Column="1" Grid.Row="5"  Content="добавить" Command="{Binding AddGoods}"/>
+                    <Button Grid.Column="2" Grid.Row="5"  Content="обновить" Command="{Binding EditGoods}"/>
                 </Grid>
 
             </TabItem>
@@ -87,14 +88,14 @@ DataContext="{DynamicResource vm}"
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Label Content="Имя"/>
-                    <TextBox Text="{Binding User.Name}" Grid.Column="1"/>
-                    <Label Content="Логин" Grid.Row="1"/>
-                    <TextBox Text="{Binding User.Login}" Grid.Column="1" Grid.Row="1"/> 
-                    <Label Content="Пароль" Grid.Row="2"/>
-                    <TextBox Text="{Binding User.Password}" Grid.Column="1" Grid.Row="2"/>
+                    <Label Content="Название"/>
+                    <TextBox Text="{Binding Good.Title}" Grid.Column="1" Grid.ColumnSpan="2" BorderBrush="Black"/>
 
+                    <Button Grid.Column="1" Grid.Row="5"  Content="добавить" Command="{Binding AddGoods}"/>
+                    <Button Grid.Column="2" Grid.Row="5"  Content="обновить" Command="{Binding EditGoods}"/>
                 </Grid>
             </TabItem>
             <TabItem  Header="Сотрудники">
@@ -115,6 +116,15 @@ DataContext="{DynamicResource vm}"
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
+                    <Label Content="Имя"/>
+                    <TextBox Text="{Binding User.Name}" Grid.Column="1" Grid.ColumnSpan="2" BorderBrush="Black"/>
+                    <Label Content="Логин" Grid.Row="1"/>
+                    <TextBox Text="{Binding User.Login}" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" BorderBrush="Black"/>
+                    <Label Content="Пароль" Grid.Row="2"/>
+                    <TextBox Text="{Binding User.Password}" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" BorderBrush="Black"/>
+                   
+                    <Button Grid.Column="1" Grid.Row="5"  Content="добавить" Command="{Binding AddUsers}"/>
+                    <Button Grid.Column="2" Grid.Row="5"  Content="обновить" Command="{Binding EditUsers}"/>
                 </Grid>
             </TabItem>
         </TabControl>

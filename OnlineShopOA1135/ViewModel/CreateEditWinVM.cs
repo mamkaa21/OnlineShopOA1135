@@ -52,11 +52,27 @@ namespace OnlineShopOA1135.ViewModel
             }
         }
 
+        private User user { get; set; }
+        public User User
+        {
+            get => user;
+            set
+            {
+                user = value;
+                Signal(nameof(User));
+            }
+        }
 
         public Command GetImageByFile { get; }
         public Command AddGoods { get; }
-
+        public Command EditGoods { get; }
+        public Command AddCategories { get; }
+        public Command EditCategories { get; }
+        public Command AddUsers { get; }
+        public Command EditUsers { get; }
         public Command UserWinOpen { get; }
+
+        //нужна кнопка показать пароль/логин после того как впишем старый(для изменения например)
         public CreateEditWinVM()
         {
             //Good = good;
@@ -82,6 +98,91 @@ namespace OnlineShopOA1135.ViewModel
             {
                 string arg = JsonSerializer.Serialize(Good);
                 var responce = await HttpClientS.HttpClient.PostAsync($"Admin/CreateGoods", new StringContent(arg, Encoding.UTF8, "application/json"));
+
+                if (responce.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                {
+                    var result = await responce.Content.ReadAsStringAsync();
+                    MessageBox.Show("error");
+                    return;
+                }
+                if (responce.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    MessageBox.Show("ok");
+                }
+
+            });
+            EditGoods = new Command(async () =>
+            {
+                string arg = JsonSerializer.Serialize(Good);
+                var responce = await HttpClientS.HttpClient.PostAsync($"Admin/EditGoods", new StringContent(arg, Encoding.UTF8, "application/json"));
+
+                if (responce.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                {
+                    var result = await responce.Content.ReadAsStringAsync();
+                    MessageBox.Show("error");
+                    return;
+                }
+                if (responce.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    MessageBox.Show("ok");
+                }
+
+            });
+            AddCategories = new Command(async () =>
+            {
+                string arg = JsonSerializer.Serialize(Category);
+                var responce = await HttpClientS.HttpClient.PostAsync($"Admin/CreateCategories", new StringContent(arg, Encoding.UTF8, "application/json"));
+
+                if (responce.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                {
+                    var result = await responce.Content.ReadAsStringAsync();
+                    MessageBox.Show("error");
+                    return;
+                }
+                if (responce.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    MessageBox.Show("ok");
+                }
+
+            });
+            EditCategories = new Command(async () =>
+            {
+                string arg = JsonSerializer.Serialize(Category);
+                var responce = await HttpClientS.HttpClient.PostAsync($"Admin/EditCategories", new StringContent(arg, Encoding.UTF8, "application/json"));
+
+                if (responce.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                {
+                    var result = await responce.Content.ReadAsStringAsync();
+                    MessageBox.Show("error");
+                    return;
+                }
+                if (responce.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    MessageBox.Show("ok");
+                }
+
+            });
+            AddUsers = new Command(async () =>
+            {
+                string arg = JsonSerializer.Serialize(User);
+                var responce = await HttpClientS.HttpClient.PostAsync($"Admin/CreateUsers", new StringContent(arg, Encoding.UTF8, "application/json"));
+
+                if (responce.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                {
+                    var result = await responce.Content.ReadAsStringAsync();
+                    MessageBox.Show("error");
+                    return;
+                }
+                if (responce.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    MessageBox.Show("ok");
+                }
+
+            });
+            EditUsers = new Command(async () =>
+            {
+                string arg = JsonSerializer.Serialize(User);
+                var responce = await HttpClientS.HttpClient.PostAsync($"Admin/EditUsers", new StringContent(arg, Encoding.UTF8, "application/json"));
 
                 if (responce.StatusCode == System.Net.HttpStatusCode.BadRequest)
                 {
