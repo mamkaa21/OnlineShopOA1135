@@ -7,6 +7,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using OnlineShopOA1135.Model;
 using OnlineShopOA1135.View;
 
@@ -39,6 +40,7 @@ namespace OnlineShopOA1135.ViewModel
 
         public Command BasketWinOpen { get; }
         public Command UserWinOpen { get; }
+        public ICommand DoubleClickCommand { get; private set; }
         public UserMenuVM()
         {
             GetGoods();
@@ -54,8 +56,17 @@ namespace OnlineShopOA1135.ViewModel
                 userWin.Show();
                 Signal();
             });
+            DoubleClickCommand = new RelayCommand(DoubleClickExecute);
         }
-
+        private void DoubleClickExecute(object parameter)
+        {
+            if (parameter is Good selectedItem)
+            {
+               GoodWin goodWin = new GoodWin();
+                goodWin.Show();
+                Signal();
+            }
+        }
         public async void GetGoods()
         {
             string arg = JsonSerializer.Serialize(Good);
@@ -68,12 +79,10 @@ namespace OnlineShopOA1135.ViewModel
                 return;
             }
             if (responce.StatusCode == System.Net.HttpStatusCode.OK)
-            {
-                MessageBox.Show("succes");
-              GoodList = await   responce.Content.ReadFromJsonAsync<List<Good>>();
+            {              
+                GoodList = await responce.Content.ReadFromJsonAsync<List<Good>>();
                 return;
             }
         }
-
     }
 }

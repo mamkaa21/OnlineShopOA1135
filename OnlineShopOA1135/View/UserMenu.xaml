@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:OnlineShopOA1135.View"
         xmlns:m="clr-namespace:OnlineShopOA1135.Model"
         xmlns:vm ="clr-namespace:OnlineShopOA1135.ViewModel"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         DataContext="{DynamicResource vm}"
         Title="UserMenu" Height="450" Width="800">
@@ -33,7 +34,13 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <ListBox Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="4" Grid.RowSpan="6" ScrollViewer.VerticalScrollBarVisibility="Visible"
-                    ItemsSource="{Binding GoodList}" SelectedItem="{Binding Good}">
+                    ItemsSource="{Binding GoodList}" SelectedItem="{Binding Good}" x:Name="UserMenuLB">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <i:InvokeCommandAction Command="{Binding DoubleClickCommand}"
+                                                   CommandParameter="{Binding ElementName=UserMenuLB, Path=SelectedItem}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel />
