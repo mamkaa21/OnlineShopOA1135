@@ -94,8 +94,8 @@ DataContext="{DynamicResource vm}"
                     <Label Content="Название"/>
                     <TextBox Text="{Binding Good.Title}" Grid.Column="1" Grid.ColumnSpan="2" BorderBrush="Black"/>
 
-                    <Button Grid.Column="1" Grid.Row="5"  Content="добавить" Command="{Binding AddGoods}"/>
-                    <Button Grid.Column="2" Grid.Row="5"  Content="обновить" Command="{Binding EditGoods}"/>
+                    <Button Grid.Column="1" Grid.Row="5"  Content="добавить" Command="{Binding AddCategories}"/>
+                    <Button Grid.Column="2" Grid.Row="5"  Content="обновить" Command="{Binding EditCategories}"/>
                 </Grid>
             </TabItem>
             <TabItem  Header="Сотрудники">

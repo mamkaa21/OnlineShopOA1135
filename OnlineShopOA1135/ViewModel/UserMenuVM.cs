@@ -38,12 +38,36 @@ namespace OnlineShopOA1135.ViewModel
             }
         }
 
+
+        private Category category { get; set; }
+        public Category Category
+        {
+            get => category;
+            set
+            {
+                category = value;
+                Signal(nameof(Category));
+            }
+        }
+
+        private List<Category> categoryList { get; set; }
+        public List<Category> CategoryList
+        {
+            get => categoryList;
+            set
+            {
+                categoryList = value;
+                Signal(nameof(CategoryList));
+            }
+        }
         public Command BasketWinOpen { get; }
         public Command UserWinOpen { get; }
         public ICommand DoubleClickCommand { get; private set; }
         public UserMenuVM()
         {
+            GetCategories();
             GetGoods();
+            //GetCategories();
             BasketWinOpen = new Command(() =>
             {
                 BasketWin basketWin = new BasketWin();
@@ -65,6 +89,24 @@ namespace OnlineShopOA1135.ViewModel
                GoodWin goodWin = new GoodWin();
                 goodWin.Show();
                 Signal();
+            }
+        }
+
+        public async void GetCategories()
+        {
+            string arg = JsonSerializer.Serialize(Category);
+            var responce = await HttpClientS.HttpClient.GetAsync($"Admin/GetCategories");
+
+            if (responce.StatusCode == System.Net.HttpStatusCode.BadRequest)
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show(result);
+                return;
+            }
+            if (responce.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                CategoryList = await responce.Content.ReadFromJsonAsync<List<Category>>();
+                return;
             }
         }
         public async void GetGoods()

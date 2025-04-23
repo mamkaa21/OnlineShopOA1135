@@ -63,11 +63,18 @@
         <Label Content="logo" FontSize="33"/>
         <Button Content="home" Grid.Row="1" Background="White" BorderThickness="0"/>
 
-        <ListBox Grid.Row="2" Grid.Column="5" Grid.ColumnSpan="2" Grid.RowSpan="3" >
-            <CheckBox Content="fff"/>
-            <CheckBox/>
-            <CheckBox/>
-            <CheckBox/>
+        <ListBox Grid.Row="2" Grid.Column="5" Grid.ColumnSpan="2" Grid.RowSpan="3" ItemsSource="{Binding CategoryList}" SelectedItem="{Binding Category}">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel />
+                    <!--тут ничего не трогать!!!-->
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate >
+                <DataTemplate >
+                    <CheckBox Content="{Binding Title}"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
         </ListBox>
         <TextBox Grid.Column="1" Grid.ColumnSpan="3" />
         <Button Content="🔍" Grid.Column="4" Background="White" FontSize="40" BorderThickness="0"/>

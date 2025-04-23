@@ -31,6 +31,27 @@ namespace OnlineShopOA1135.ViewModel
                 Signal(nameof(GoodList));
             }
         }
+        private Category category { get; set; }
+        public Category Category
+        {
+            get => category;
+            set
+            {
+                category = value;
+                Signal(nameof(Category));
+            }
+        }
+
+        private List<Category> categoryList { get; set; }
+        public List<Category> CategoryList
+        {
+            get => categoryList;
+            set
+            {
+                categoryList = value;
+                Signal(nameof(CategoryList));
+            }
+        }
 
         public Command OrderWinOpen { get; }
         public Command CreateWinOpen { get; }
@@ -40,6 +61,7 @@ namespace OnlineShopOA1135.ViewModel
         public Command UserWinOpen { get; }
         public AdminWinVM()
         {
+            GetCategories();
             GetGoods();
             OrderWinOpen = new Command(() =>
             {
@@ -100,7 +122,23 @@ namespace OnlineShopOA1135.ViewModel
                 Signal();
             });
         }
+        public async void GetCategories()
+        {
+            string arg = JsonSerializer.Serialize(Category);
+            var responce = await HttpClientS.HttpClient.GetAsync($"Admin/GetCategories");
 
+            if (responce.StatusCode == System.Net.HttpStatusCode.BadRequest)
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show(result);
+                return;
+            }
+            if (responce.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                CategoryList = await responce.Content.ReadFromJsonAsync<List<Category>>();
+                return;
+            }
+        }
         public async void GetGoods()
         {
             string arg = JsonSerializer.Serialize(Good);
