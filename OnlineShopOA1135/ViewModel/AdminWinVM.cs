@@ -3,6 +3,7 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 using System.Windows;
+using System.Windows.Threading;
 using OnlineShopOA1135.Model;
 using OnlineShopOA1135.View;
 
@@ -59,6 +60,8 @@ namespace OnlineShopOA1135.ViewModel
         public Command DeleteGoods { get; }
         public Command FindGoodsByTitle { get; }
         public Command UserWinOpen { get; }
+
+        private DispatcherTimer timer = null;
         public AdminWinVM()
         {
             GetCategories();
@@ -122,6 +125,23 @@ namespace OnlineShopOA1135.ViewModel
                 Signal();
             });
         }
+
+        public void timerStart()
+        {
+            timer = new DispatcherTimer();
+            timer.Tick += new EventHandler(timerTick);
+            timer.Interval = new TimeSpan(0, 0, 10);
+            timer.Start();
+        }
+        private void timerTick(object sender, EventArgs e) //к таймеру относится 
+        {
+            Thread thread1 = new Thread(GetCategories);
+            thread1.Start();
+            Thread thread2 = new Thread(GetGoods);
+            thread2.Start();
+        }
+
+
         public async void GetCategories()
         {
             string arg = JsonSerializer.Serialize(Category);

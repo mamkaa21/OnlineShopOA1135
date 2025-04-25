@@ -23,5 +23,9 @@ namespace OnlineShopOA1135.ViewModel
                 return _httpClient;
             }
         }
+        public static void SetToken(string token)
+        {
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+        }
     }
 }

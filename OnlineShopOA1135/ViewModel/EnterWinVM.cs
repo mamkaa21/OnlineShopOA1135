@@ -35,20 +35,23 @@ namespace OnlineShopOA1135.ViewModel
 
                 if (responce.StatusCode == System.Net.HttpStatusCode.OK)
                 {
-                   var d= await responce.Content.ReadFromJsonAsync<UserModel>();
+                    var token = await  responce.Content.ReadAsStringAsync();
+                    HttpClientS.SetToken(token);
+                    responce = await HttpClientS.HttpClient.GetAsync($"User");
+                    var d= await responce.Content.ReadFromJsonAsync<UserModel>();
                     if (d.RoleId == 1)
                     {
                         AdminWin adminWin = new AdminWin();
                         adminWin.Show();
                         Signal();
-                        enterWindow.Close();
+                        //enterWindow.Close();
                     }
                     else
                     {
                         UserMenu userMenu = new UserMenu();
                         userMenu.Show();
                         Signal();
-                        enterWindow.Close();
+                        //enterWindow.Close();
                     }
                 }
                 else

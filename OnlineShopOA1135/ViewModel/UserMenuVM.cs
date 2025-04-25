@@ -8,6 +8,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Threading;
 using OnlineShopOA1135.Model;
 using OnlineShopOA1135.View;
 
@@ -63,11 +64,15 @@ namespace OnlineShopOA1135.ViewModel
         public Command BasketWinOpen { get; }
         public Command UserWinOpen { get; }
         public ICommand DoubleClickCommand { get; private set; }
+
+        private DispatcherTimer timer = null;
+
+
         public UserMenuVM()
         {
             GetCategories();
             GetGoods();
-            //GetCategories();
+            //timerStart();
             BasketWinOpen = new Command(() =>
             {
                 BasketWin basketWin = new BasketWin();
@@ -82,6 +87,23 @@ namespace OnlineShopOA1135.ViewModel
             });
             DoubleClickCommand = new RelayCommand(DoubleClickExecute);
         }
+
+        public void timerStart()
+        {
+            timer = new DispatcherTimer();
+            timer.Tick += new EventHandler(timerTick);
+            timer.Interval = new TimeSpan(0, 0, 3);
+            timer.Start();
+        }
+        private void timerTick(object sender, EventArgs e) //к таймеру относится 
+        {
+            Thread thread1 = new Thread(GetCategories);
+            thread1.Start();
+            Thread thread2 = new Thread(GetGoods);
+            thread2.Start();         
+        }
+
+
         private void DoubleClickExecute(object parameter)
         {
             if (parameter is Good selectedItem)
@@ -91,6 +113,7 @@ namespace OnlineShopOA1135.ViewModel
                 Signal();
             }
         }
+
 
         public async void GetCategories()
         {
