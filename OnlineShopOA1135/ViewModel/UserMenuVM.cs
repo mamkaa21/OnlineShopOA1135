@@ -154,7 +154,7 @@ namespace OnlineShopOA1135.ViewModel
         {
             var categories = CategoryList.Where(s=>s.Check==true).Select(s=>s.Id).ToList();
             string json = JsonSerializer.Serialize<List<int>>(categories);
-            var responce = await HttpClientS.HttpClient.PostAsync($"User/FindGoods",
+            var responce = await HttpClientS.HttpClient.PostAsync($"User/FiltGoodsByCat",
                 new StringContent(json, Encoding.UTF8, "application/json"));
 
             if (responce.StatusCode == System.Net.HttpStatusCode.BadRequest)
