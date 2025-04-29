@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OnlineShopOA1135.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,6 +25,9 @@ namespace OnlineShopOA1135.View
             InitializeComponent();
         }
 
-      
+        private void IsCheckedClick(object sender, RoutedEventArgs e)
+        {
+            (DataContext as UserMenuVM).ListCategoryClick();
+        }
     }
 }

@@ -149,5 +149,25 @@ namespace OnlineShopOA1135.ViewModel
                 return;
             }
         }
+
+        internal async void ListCategoryClick()
+        {
+            var categories = CategoryList.Where(s=>s.Check==true).Select(s=>s.Id).ToList();
+            string json = JsonSerializer.Serialize<List<int>>(categories);
+            var responce = await HttpClientS.HttpClient.PostAsync($"User/FindGoods",
+                new StringContent(json, Encoding.UTF8, "application/json"));
+
+            if (responce.StatusCode == System.Net.HttpStatusCode.BadRequest)
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show(result);
+                return;
+            }
+            if (responce.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                GoodList = await responce.Content.ReadFromJsonAsync<List<Good>>();
+                return;
+            }
+        }
     }
 }

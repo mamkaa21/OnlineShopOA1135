@@ -72,7 +72,7 @@
             </ListBox.ItemsPanel>
             <ListBox.ItemTemplate >
                 <DataTemplate >
-                    <CheckBox Content="{Binding Title}"/>
+                    <CheckBox Content="{Binding Title}" IsChecked="{Binding Check}" Click="IsCheckedClick"/>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
