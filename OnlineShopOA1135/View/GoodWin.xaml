@@ -7,6 +7,45 @@
         mc:Ignorable="d"
         Title="GoodWin" Height="450" Width="800">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <!--<Label Content="logo" FontSize="35"/>-->
+        <!--<Button Grid.Column="6" Content="prfl" Command="{Binding UserWinOpen}" Background="White"/>-->
+
+        <Label  Grid.Column="1" Grid.ColumnSpan="5" Content="{Binding Good.Title}"/>
+        <Image Grid.Column="1" Grid.Row="1" Width="454" Height="267"/>
+        <Label Grid.Row="1" Grid.Column="5" Content="{Binding Good.Rating}"/>
+        <TextBlock Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="4" Grid.RowSpan="2" Text="{Binding Good.Description}"/>
+        <ListBox Grid.Row="2" Grid.Column="5" Grid.ColumnSpan="2" Grid.RowSpan="5" ScrollViewer.VerticalScrollBarVisibility="Visible" >
+            <ListBox.ItemTemplate >
+                <DataTemplate >
+                    <StackPanel Width="200">
+                        <TextBlock  Text="{Binding Title}"/>
+                        <Image Source="{Binding Image}" Width="200"/>
+                        <TextBlock Text="{Binding Description}"/>
+                        <TextBlock  Text="{Binding Category.Title}"/>
+                        <TextBlock Text="{Binding Rating}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
     </Grid>
 </Window>
