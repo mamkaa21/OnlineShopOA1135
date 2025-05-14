@@ -106,9 +106,10 @@ namespace OnlineShopOA1135.ViewModel
 
         private void DoubleClickExecute(object parameter)
         {
-            if (parameter is Good selectedItem)
-            {
-               GoodWin goodWin = new GoodWin();
+          
+            if (parameter is Good Good)
+            {            
+                GoodWin goodWin = new GoodWin(Good);
                 goodWin.Show();
                 Signal();
             }

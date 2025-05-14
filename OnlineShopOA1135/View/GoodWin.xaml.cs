@@ -1,4 +1,6 @@
-﻿using System;
+﻿using OnlineShopOA1135.Model;
+using OnlineShopOA1135.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +21,11 @@ namespace OnlineShopOA1135.View
     /// </summary>
     public partial class GoodWin : Window
     {
-        public GoodWin()
+        public GoodWin(Good good)
         {
             InitializeComponent();
+            ((GoodWinVM)DataContext).Good = good;
+            (DataContext as GoodWinVM).SetWindow(this);
         }
     }
 }

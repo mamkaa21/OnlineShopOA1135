@@ -33,15 +33,13 @@
         <Image Grid.Column="1" Grid.Row="1" Width="454" Height="267"/>
         <Label Grid.Row="1" Grid.Column="5" Content="{Binding Good.Rating}"/>
         <TextBlock Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="4" Grid.RowSpan="2" Text="{Binding Good.Description}"/>
-        <ListBox Grid.Row="2" Grid.Column="5" Grid.ColumnSpan="2" Grid.RowSpan="5" ScrollViewer.VerticalScrollBarVisibility="Visible" >
+        <ListBox Grid.Row="2" Grid.Column="5" Grid.ColumnSpan="2" Grid.RowSpan="5" 
+                 ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{Binding ReviewGood}" SelectedItem="{Binding Review}">
             <ListBox.ItemTemplate >
                 <DataTemplate >
                     <StackPanel Width="200">
-                        <TextBlock  Text="{Binding Title}"/>
-                        <Image Source="{Binding Image}" Width="200"/>
-                        <TextBlock Text="{Binding Description}"/>
-                        <TextBlock  Text="{Binding Category.Title}"/>
-                        <TextBlock Text="{Binding Rating}"/>
+                      
+                        <TextBlock Text="{Binding Review}"/>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
