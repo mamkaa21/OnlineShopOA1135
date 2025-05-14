@@ -64,6 +64,7 @@ namespace OnlineShopOA1135.ViewModel
         public Command BasketWinOpen { get; }
         public Command UserWinOpen { get; }
         public ICommand DoubleClickCommand { get; private set; }
+        public  Command AddToBasket {  get; }
 
         private DispatcherTimer timer = null;
 
@@ -86,6 +87,22 @@ namespace OnlineShopOA1135.ViewModel
                 Signal();
             });
             DoubleClickCommand = new RelayCommand(DoubleClickExecute);
+            AddToBasket = new Command( async () => 
+            {
+                string arg = JsonSerializer.Serialize(Good);
+                var responce = await HttpClientS.HttpClient.PostAsync($"User/AddToBasket", new StringContent(arg, Encoding.UTF8, "application/json"));
+
+                if (responce.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                {
+                    var result = await responce.Content.ReadAsStringAsync();
+                    MessageBox.Show("error");
+                    return;
+                }
+                if (responce.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    MessageBox.Show("ok");
+                }
+            });
         }
 
         public void timerStart()

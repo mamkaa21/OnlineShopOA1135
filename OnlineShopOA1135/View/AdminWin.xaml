@@ -48,6 +48,7 @@ DataContext="{DynamicResource vm}"
                     <!--тут ничего не трогать!!!-->
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
+            
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Width="200">
