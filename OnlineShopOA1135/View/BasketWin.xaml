@@ -50,7 +50,7 @@
             <ListBox.ItemTemplate >
                 <DataTemplate >
                     <StackPanel Width="200" >
-                        <Image Source="{Binding Image}" Width="100"/>
+                        <Image Source="{Binding OrderGoodsCrosses.GoodsId}" Width="100"/>
                         <TextBlock  Text="{Binding Title}"/>   
                         <TextBlock  Text="{Binding GoodsId}"/>
                         <TextBlock  Text="{Binding Category.Title}"/>

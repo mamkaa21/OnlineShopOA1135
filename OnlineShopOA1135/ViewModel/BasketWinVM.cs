@@ -6,6 +6,9 @@ using System.Security.Cryptography.Xml;
 using System.Text;
 using System.Threading.Tasks;
 using OnlineShopOA1135.Model;
+using System.Net.Http.Json;
+using System.Text.Json;
+using System.Windows;
 
 namespace OnlineShopOA1135.ViewModel
 {
@@ -59,6 +62,7 @@ namespace OnlineShopOA1135.ViewModel
         public Command UserWinOpen { get; }
         public BasketWinVM()
         {
+            GetOrderBasket();
             UserMenuOpen = new Command(() =>
             {
                 UserMenu userMenu = new UserMenu();
@@ -72,6 +76,25 @@ namespace OnlineShopOA1135.ViewModel
                 Signal();
             });
         }
+
+        public async void GetOrderBasket()
+        {
+            string arg = JsonSerializer.Serialize(Order);
+            var responce = await HttpClientS.HttpClient.GetAsync($"User/GetOrderBasket");
+
+            if (responce.StatusCode == System.Net.HttpStatusCode.BadRequest)
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show(result);
+                return;
+            }
+            if (responce.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                OrderList = await responce.Content.ReadFromJsonAsync<List<Order>>();
+                return;
+            }
+        }
+
         BasketWin basketWin;
         internal void SetWindow(BasketWin basketWin)
         {
