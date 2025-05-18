@@ -52,28 +52,3 @@ public partial class UserModel
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 }
 
-public partial class ActiveUser
-{
-    private ActiveUser() { }
-
-    //static ActiveUser instance;
-    //public static ActiveUser Instance
-    //{
-    //    get
-    //    {
-    //        if (instance == null)
-    //            instance = new ActiveUser();
-    //        return instance;
-    //    }
-    //}
-    private User user;
-    public User GetUser()
-    {
-        return user;
-    }
-
-    public void SetUser(User value)
-    {
-        user = value;
-    }
-}

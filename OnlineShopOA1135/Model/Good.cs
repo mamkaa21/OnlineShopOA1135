@@ -24,4 +24,6 @@ public partial class Good
     public int? Rating { get; set; }
 
     public virtual Category? Category { get; set; }
+
+    public virtual ICollection<OrderGoodsCross> OrderGoodsCrosses { get; set; } = new List<OrderGoodsCross>();
 }

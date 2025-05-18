@@ -9,13 +9,13 @@ public partial class Order
 
     public int? UserId { get; set; }
 
-    public int? CountProduct { get; set; }
-
     public string? Status { get; set; }
 
     public DateTime? DateCreated { get; set; }
 
     public DateTime? DateStatusUpdated { get; set; }
+
+    public virtual ICollection<OrderGoodsCross> OrderGoodsCrosses { get; set; } = new List<OrderGoodsCross>();
 
     public virtual User? User { get; set; }
 }
