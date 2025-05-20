@@ -8,11 +8,12 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 
 namespace OnlineShopOA1135.ViewModel
 {
-   public class OrderWinVM : BaseVM
-   {
+    public class OrderWinVM : BaseVM
+    {
         private Order order { get; set; }
         public Order Order
         {
@@ -67,12 +68,19 @@ namespace OnlineShopOA1135.ViewModel
                 Signal(nameof(User));
             }
         }
+        public ICommand DoubleClickCommand { get; }
+        public Command UserWinOpen { get; }
+        public OrderWinVM()
+        {
 
-
-      public  OrderWinVM() 
-      {
-        
-      }
+            UserWinOpen = new Command(() =>
+            {
+                UserWin userWin = new UserWin();
+                userWin.Show();
+                Signal();
+            });
+            DoubleClickCommand = new RelayCommand(DoubleClickExecute);
+        }
 
         public async void GetUserData()
         {
@@ -89,8 +97,18 @@ namespace OnlineShopOA1135.ViewModel
             {
                 User = await responce.Content.ReadFromJsonAsync<User>();
 
-               
+
                 return;
+            }
+        }
+        private void DoubleClickExecute(object parameter)
+        {
+
+            if (parameter is Good Good)
+            {
+                GoodWin goodWin = new GoodWin(Good);
+                goodWin.Show();
+                Signal();
             }
         }
 

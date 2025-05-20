@@ -37,8 +37,29 @@ Title="OrderWin" Height="450" Width="800">
 
         <TabControl Grid.Row="1" Grid.ColumnSpan="5" Grid.RowSpan="5">
             <TabItem  Header="активные">
-                <ListBox>
-                    <!--листбокс с зказами-->
+                <ListBox  ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{Binding OrderList}" SelectedItem="{Binding Order}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDoubleClick">
+                            <i:InvokeCommandAction Command="{Binding DoubleClickCommand}"
+                            CommandParameter="{Binding ElementName=UserMenuLB, Path=SelectedItem}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal" IsItemsHost="True"/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate >
+                        <DataTemplate >
+                            <StackPanel Width="200" >
+                                <Image Source="{Binding Goods.Image}" Width="100"/>
+                                <TextBlock  Text="{Binding Goods.Title}"/>
+                                <TextBlock  Text="{Binding Goods.Category.Title}"/>
+                                <Button Content="+"/>
+                                <Button Content="-"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
                 </ListBox>
             </TabItem>
             <TabItem  Header="выполненные">
