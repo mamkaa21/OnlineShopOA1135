@@ -12,7 +12,7 @@ using System.Windows;
 
 namespace OnlineShopOA1135.ViewModel
 {
-    class BasketWinVM : BaseVM
+   public  class BasketWinVM : BaseVM
     {
         private Order order {  get; set; }
         public Order Order
@@ -135,7 +135,7 @@ namespace OnlineShopOA1135.ViewModel
         {
             this.basketWin = basketWin;
         }
-        internal void CloseWindow(EnterWin basketWin)
+        internal void CloseWindow(BasketWin basketWin)
         {
             this.basketWin.Close();
         }
