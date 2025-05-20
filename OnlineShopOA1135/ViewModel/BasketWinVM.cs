@@ -58,11 +58,24 @@ namespace OnlineShopOA1135.ViewModel
             }
         }
 
+        private User user { get; set; }
+        public User User
+        {
+            get => user;
+            set
+            {
+                user = value;
+                Signal(nameof(User));
+            }
+        }
+
+      
+
         public Command UserMenuOpen { get; }
         public Command UserWinOpen { get; }
         public BasketWinVM()
         {
-            GetOrderBasket();
+            GetUserData();
             UserMenuOpen = new Command(() =>
             {
                 UserMenu userMenu = new UserMenu();
@@ -77,10 +90,10 @@ namespace OnlineShopOA1135.ViewModel
             });
         }
 
-        public async void GetOrderBasket()
+        public async void GetGoodByOrder(int userId)
         {
-            string arg = JsonSerializer.Serialize(Order);
-            var responce = await HttpClientS.HttpClient.GetAsync($"User/GetOrderBasket");
+            string arg = JsonSerializer.Serialize(Cross);
+            var responce = await HttpClientS.HttpClient.GetAsync($"User/GetGoodByOrder/{userId}");
 
             if (responce.StatusCode == System.Net.HttpStatusCode.BadRequest)
             {
@@ -90,10 +103,32 @@ namespace OnlineShopOA1135.ViewModel
             }
             if (responce.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                OrderList = await responce.Content.ReadFromJsonAsync<List<Order>>();
+                CrossList = await responce.Content.ReadFromJsonAsync<List<OrderGoodsCross>>();
+
                 return;
             }
         }
+
+        public async void GetUserData()
+        {
+            string arg = JsonSerializer.Serialize(User);
+            var responce = await HttpClientS.HttpClient.GetAsync($"User");
+
+            if (responce.StatusCode == System.Net.HttpStatusCode.BadRequest)
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show(result);
+                return;
+            }
+            if (responce.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                User = await responce.Content.ReadFromJsonAsync<User>();
+
+                GetGoodByOrder(User.Id);
+                return;
+            }
+        }
+       
 
         BasketWin basketWin;
         internal void SetWindow(BasketWin basketWin)

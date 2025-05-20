@@ -35,7 +35,7 @@
         <Label Content="Logo" FontSize="40"/>
         
         <ListBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Grid.RowSpan="5" 
-                 ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{Binding OrderList}" SelectedItem="{Binding Order}">
+                 ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{Binding CrossList}" SelectedItem="{Binding Cross}">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">
                     <i:InvokeCommandAction Command="{Binding DoubleClickCommand}"
@@ -50,10 +50,9 @@
             <ListBox.ItemTemplate >
                 <DataTemplate >
                     <StackPanel Width="200" >
-                        <Image Source="{Binding OrderGoodsCrosses.GoodsId}" Width="100"/>
-                        <TextBlock  Text="{Binding Title}"/>   
-                        <TextBlock  Text="{Binding GoodsId}"/>
-                        <TextBlock  Text="{Binding Category.Title}"/>
+                        <Image Source="{Binding Goods.Image}" Width="100"/>
+                        <TextBlock  Text="{Binding Goods.Title}"/>
+                        <TextBlock  Text="{Binding Goods.Category.Title}"/>
                         <Button Content="+"/>
                         <Button Content="-"/>
                     </StackPanel>
