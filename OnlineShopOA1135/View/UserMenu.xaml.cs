@@ -23,11 +23,13 @@ namespace OnlineShopOA1135.View
         public UserMenu()
         {
             InitializeComponent();
+            (DataContext as UserMenuVM).SetWindow(this);
         }
 
         private void IsCheckedClick(object sender, RoutedEventArgs e)
         {
             (DataContext as UserMenuVM).ListCategoryClick();
+
         }
     }
 }
