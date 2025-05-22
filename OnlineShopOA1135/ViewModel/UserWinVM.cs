@@ -8,6 +8,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 
 namespace OnlineShopOA1135.ViewModel
 {
@@ -84,23 +85,51 @@ namespace OnlineShopOA1135.ViewModel
             }
         }
 
-        public Command EditUserWin { get; }
+        private bool listBoxEnabled = false; // Изначально отключен
+        public bool ListBoxEnabled
+        {
+            get => listBoxEnabled;
+            set
+            {
+                if (listBoxEnabled != value)
+                {
+                    listBoxEnabled = value;
+                    Signal();
+                }
+            }
+        }
+
+        //private bool butTrue = true; 
+        //public bool ButTrue
+        //{
+        //    get => butTrue;
+        //    set
+        //    {
+               
+        //            butTrue = value;
+        //            Signal();
+                
+        //    }
+        //}
+
+        public ICommand EditUserWin { get; }
         public Command SaveChangedByUserWin { get; }
 
         public UserWinVM()
         {
             GetUserData();
-            EditUserWin = new Command(() =>
-            {
-
-            });
+            EditUserWin = new RelayCommand(EnableListBox);
             SaveChangedByUserWin = new Command(() =>
             {
 
             });
 
         }
-        public async void  GetUserData()
+        public void EnableListBox(object j)
+        {
+            ListBoxEnabled = true;
+        }
+        public async void GetUserData()
         {
             string arg = JsonSerializer.Serialize(User);
             var responce = await HttpClientS.HttpClient.GetAsync($"User");

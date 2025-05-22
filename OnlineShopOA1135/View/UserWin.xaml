@@ -31,20 +31,21 @@
         </Grid.RowDefinitions>
         <TabControl x:Name="MainTabControl" Grid.Row="1" Grid.ColumnSpan="5" Grid.RowSpan="5" BorderBrush="White">
             <TabItem Header="Профиль">
-                <StackPanel>
+                
+                <StackPanel >
                     <Button Content="Редактировать"  Width="100" HorizontalAlignment="Right" Command="{Binding EditUserWin}"/>
 
                     <Label Content="Имя"  Grid.Row="1" FontSize="20" HorizontalAlignment="Left"/>
-                    <TextBox Text="{Binding User.Name}"  BorderBrush="Black" Width="300" HorizontalAlignment="Left" IsEnabled="False"/>
+                    <TextBox Text="{Binding User.Name}"  BorderBrush="Black" Width="300" HorizontalAlignment="Left" IsEnabled="{Binding ListBoxEnabled}"/>
 
                     <Label Content="Почта" Grid.Row="2" FontSize="20" HorizontalAlignment="Left"/>
-                    <TextBox Text="{Binding User.Email}" BorderBrush="Black" Width="300" HorizontalAlignment="Left" IsEnabled="False"/>
+                    <TextBox Text="{Binding User.Email}" BorderBrush="Black" Width="300" HorizontalAlignment="Left" IsEnabled="{Binding ListBoxEnabled}"/>
 
                     <Label Content="Логин" Grid.Row="2" FontSize="20" HorizontalAlignment="Left"/>
-                    <TextBox Text="{Binding User.Login}"  BorderBrush="Black" Width="300" HorizontalAlignment="Left" IsEnabled="False"/>
+                    <TextBox Text="{Binding User.Login}"  BorderBrush="Black" Width="300" HorizontalAlignment="Left" IsEnabled="{Binding ListBoxEnabled}"/>
 
                     <Label Content="Пароль" Grid.Row="2" FontSize="20" HorizontalAlignment="Left"/>
-                    <PasswordBox Name="{Binding User.Password}" IsEnabled="False" BorderBrush="Black" Width="300" HorizontalAlignment="Left"/>
+                    <TextBox Text="{Binding User.Password}"  BorderBrush="Black" Width="300" HorizontalAlignment="Left" IsEnabled="{Binding ListBoxEnabled}"/>
 
                     <Button Content="Сохранить изменения" Width="300" HorizontalAlignment="Center" Margin="0 24 0 0" Command="{Binding SaveChangedByUserWin}"/>
                 </StackPanel>

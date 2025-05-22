@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OnlineShopOA1135.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,7 @@ namespace OnlineShopOA1135.View
         public UserWin()
         {
             InitializeComponent();
+            (DataContext as UserWinVM).SetWindow(this);
         }
     }
 }
