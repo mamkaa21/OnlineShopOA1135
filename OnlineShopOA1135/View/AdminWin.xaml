@@ -34,12 +34,13 @@ DataContext="{DynamicResource vm}"
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
+        
         <ListBox Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="4" Grid.RowSpan="6" ScrollViewer.VerticalScrollBarVisibility="Visible"
                  ItemsSource="{Binding GoodList}" SelectedItem="{Binding Good}" x:Name="AdminMenuLB">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">
                     <i:InvokeCommandAction Command="{Binding DoubleClickCommand}"
-                                                   CommandParameter="{Binding ElementName=AdminMenuLB, Path=SelectedItem}"/>
+                        CommandParameter="{Binding ElementName=AdminMenuLB, Path=SelectedItem}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
             <ListBox.ItemsPanel>
@@ -48,7 +49,6 @@ DataContext="{DynamicResource vm}"
                     <!--тут ничего не трогать!!!-->
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
-            
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Width="200">
@@ -56,21 +56,17 @@ DataContext="{DynamicResource vm}"
                         <TextBlock  Text="{Binding Category.Title}"/>
                         <Image Source="{Binding Image}" Width="200"/>
 
-
-
-
-
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+        
         <Label Content="logo" FontSize="33"/>
-        <Button Content="order" Grid.Column="1" Background="White" Command="{Binding OrderWinOpen}"/>
+        <Button Content="Заказы" Grid.Column="1" Background="White" Command="{Binding OrderWinOpen}"/>
 
-        <Button Content="create" Grid.Row="3" Background="White" Command="{Binding CreateWinOpen}"/>
-
-        <Button Content="edit" Grid.Row="4" Background="White" Command="{Binding EditWinOpen}"/>
-        <Button Content="delete" Grid.Row="5" Background="White" Command="{Binding DeleteGoods}"/>
+        <Button Content="Создать" Grid.Row="3" Background="White" Command="{Binding CreateWinOpen}"/>
+        <Button Content="Редактировать" Grid.Row="4" Background="White" Command="{Binding EditWinOpen}"/>
+        <Button Content="Удалить" Grid.Row="5" Background="White" Command="{Binding DeleteGoods}"/>
 
         <ListBox Grid.Row="2" Grid.Column="5" Grid.ColumnSpan="2" Grid.RowSpan="3" ItemsSource="{Binding CategoryList}" SelectedItem="{Binding Category}">
             <ListBox.ItemsPanel>
@@ -81,20 +77,21 @@ DataContext="{DynamicResource vm}"
             </ListBox.ItemsPanel>
             <ListBox.ItemTemplate >
                 <DataTemplate >
-                    <CheckBox Content="{Binding Title}"/>
+                    <CheckBox Content="{Binding Title}" IsChecked="{Binding Check}" Click="IsCheckedClick"/>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Button Grid.Column="5" Grid.Row="5" Content="delete" Background="White" Command="{Binding DeleteCategory}"/>
-        <Button Grid.Column="6" Grid.Row="5" Content="+" FontSize="20" Background="White" Command="{Binding CreateWinOpen}"/>
         
-        <TextBox Grid.Column="2" Grid.ColumnSpan="3" />
+        <Button Grid.Column="5" Grid.Row="5" Content="Удалить" Background="White" Command="{Binding DeleteCategory}"/>
+        <Button Grid.Column="6" Grid.Row="5" Content="Добавить" FontSize="20" Background="White" Command="{Binding CreateWinOpen}"/>
+
+        <TextBox Grid.Column="2" Grid.ColumnSpan="3" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"  />
         <Button Content="🔍" Grid.Column="5" Background="White" FontSize="40" BorderThickness="0" Command="{Binding FindGoodsByTitle}"/>
         
         <Button Content="👤"  Grid.Column="6" Background="White" FontSize="40" BorderThickness="0" Command="{Binding UserWinOpen}"/>
         
-        <Button Grid.Column="1" Grid.Row="7" Content="←" Background="White" FontSize="40" />
-        <Button Grid.Column="4" Grid.Row="7" Content="→" Background="White" FontSize="40" />
+        <!--<Button Grid.Column="1" Grid.Row="7" Content="←" Background="White" FontSize="40" />
+        <Button Grid.Column="4" Grid.Row="7" Content="→" Background="White" FontSize="40" />-->
 
     </Grid>
 </Window>

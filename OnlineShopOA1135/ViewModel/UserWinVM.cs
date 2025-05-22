@@ -3,6 +3,7 @@ using OnlineShopOA1135.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
@@ -99,29 +100,30 @@ namespace OnlineShopOA1135.ViewModel
             }
         }
 
-        //private bool butTrue = true; 
-        //public bool ButTrue
-        //{
-        //    get => butTrue;
-        //    set
-        //    {
-               
-        //            butTrue = value;
-        //            Signal();
-                
-        //    }
-        //}
-
         public ICommand EditUserWin { get; }
         public Command SaveChangedByUserWin { get; }
 
         public UserWinVM()
         {
             GetUserData();
+            GetOrderActive();
+            GetOrderDontActive();
             EditUserWin = new RelayCommand(EnableListBox);
-            SaveChangedByUserWin = new Command(() =>
+            SaveChangedByUserWin = new Command( async() =>
             {
+                string arg = JsonSerializer.Serialize(User);
+                var responce = await HttpClientS.HttpClient.PutAsync($"User/SaveChangedByUserWin", new StringContent(arg, Encoding.UTF8, "application/json"));
 
+                if (responce.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                {
+                    var result = await responce.Content.ReadAsStringAsync();
+                    MessageBox.Show("error");
+                    return;
+                }
+                if (responce.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    MessageBox.Show("ok");
+                }
             });
 
         }

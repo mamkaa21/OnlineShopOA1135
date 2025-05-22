@@ -143,7 +143,6 @@ namespace OnlineShopOA1135.ViewModel
                 return;
             }
         }
-
         public async void GetOrderDontActive()
         {
             string arg = JsonSerializer.Serialize(CrossDontActive);
@@ -161,6 +160,8 @@ namespace OnlineShopOA1135.ViewModel
                 return;
             }
         }
+
+       
 
         OrderWin orderWin;
         internal void SetWindow(OrderWin orderWin)

@@ -25,5 +25,10 @@ namespace OnlineShopOA1135.View
             InitializeComponent();
             (DataContext as AdminWinVM).SetWindow(this);
         }
+        private void IsCheckedClick(object sender, RoutedEventArgs e)
+        {
+            (DataContext as AdminWinVM).ListCategoryClick();
+
+        }
     }
 }

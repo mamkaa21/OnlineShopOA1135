@@ -62,7 +62,6 @@ namespace OnlineShopOA1135.ViewModel
                 Signal(nameof(User));
             }
         }
-
         public Command GetImageByFile { get; }
         public Command AddGoods { get; }
         public Command EditGoods { get; }
@@ -72,7 +71,6 @@ namespace OnlineShopOA1135.ViewModel
         public Command EditUsers { get; }
         public Command UserWinOpen { get; }
 
-        //нужна кнопка показать пароль/логин после того как впишем старый(для изменения например)
         public CreateEditWinVM()
         {
             //Good = good;

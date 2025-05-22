@@ -14,6 +14,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
 using System.Reflection.Metadata;
+using System.Data.Common;
 
 namespace OnlineShopOA1135.ViewModel
 {
@@ -62,7 +63,19 @@ namespace OnlineShopOA1135.ViewModel
                 Signal(nameof(CrossList));
             }
         }
-
+        //private int quantity;
+        //public int Quantity
+        //{
+        //    get => quantity;
+        //    set
+        //    {
+        //        if (quantity != value)
+        //        {
+        //            quantity = value;
+        //            OnPropertyChanged();
+        //        Signal(nameof(Quantity));
+        //    }
+        //}
         private User user { get; set; }
         public User User
         {
@@ -77,6 +90,7 @@ namespace OnlineShopOA1135.ViewModel
         public Command Back { get; }
         public Command UserWinOpen { get; }   
         public Command StatusOrderFromActive { get; }
+        public Command AddQuantity { get; }
         public BasketWinVM()
         {           
             GetUserData();
@@ -104,7 +118,24 @@ namespace OnlineShopOA1135.ViewModel
                 UserWin userWin = new UserWin();
                 userWin.Show();
                 Signal();
-            });        
+            });
+            //AddQuantity = new Command(async() =>
+            //{
+            //    string arg = JsonSerializer.Serialize(CrossList);
+            //    var responce = await HttpClientS.HttpClient.PutAsync($"User/AddQuantity", new StringContent(arg, Encoding.UTF8, "application/json"));
+
+            //    if (responce.StatusCode == System.Net.HttpStatusCode.BadRequest)
+            //    {
+            //        var result = await responce.Content.ReadAsStringAsync();
+            //        MessageBox.Show(result);
+            //        return;
+            //    }
+            //    if (responce.StatusCode == System.Net.HttpStatusCode.OK)
+            //    {
+            //        //GetGoodByOrder(User.Id);
+            //        MessageBox.Show("ok");
+            //    }
+            //});
         }
 
         private async void OrderFromActive(int userId)
@@ -122,8 +153,7 @@ namespace OnlineShopOA1135.ViewModel
                 {
                     //GetGoodByOrder(User.Id);
                     MessageBox.Show("ok");
-                }          
-           
+                }                   
         }
         public async void GetGoodByOrder(int userId)
         {
@@ -143,7 +173,6 @@ namespace OnlineShopOA1135.ViewModel
                 return;
             }
         }
-
         public async void GetUserData()
         {
             string arg = JsonSerializer.Serialize(User);
@@ -164,6 +193,15 @@ namespace OnlineShopOA1135.ViewModel
             }
         }
        
+        public void AddCount(object j)
+        {
+            if (CrossList != null)
+            {
+                  ++Cross.Quantity;
+                  Signal();
+            }
+         
+        }
 
         BasketWin basketWin;
         internal void SetWindow(BasketWin basketWin)

@@ -79,7 +79,7 @@ namespace OnlineShopOA1135.ViewModel
         public Command AddToBasket { get; }
         public Command FindGood { get; }
 
-        private DispatcherTimer timer = null;
+        //private DispatcherTimer timer = null;
 
         public UserMenuVM()
         {
@@ -142,22 +142,20 @@ namespace OnlineShopOA1135.ViewModel
             });
         }
 
-        public void timerStart()
-        {
-            timer = new DispatcherTimer();
-            timer.Tick += new EventHandler(timerTick);
-            timer.Interval = new TimeSpan(0, 0, 3);
-            timer.Start();
-        }
-
-        private void timerTick(object sender, EventArgs e) //к таймеру относится 
-        {
-            Thread thread1 = new Thread(GetCategories);
-            thread1.Start();
-            Thread thread2 = new Thread(GetGoods);
-            thread2.Start();
-        }
-
+        //public void timerStart()
+        //{
+        //    timer = new DispatcherTimer();
+        //    timer.Tick += new EventHandler(timerTick);
+        //    timer.Interval = new TimeSpan(0, 0, 3);
+        //    timer.Start();
+        //}
+        //private void timerTick(object sender, EventArgs e) //к таймеру относится 
+        //{
+        //    Thread thread1 = new Thread(GetCategories);
+        //    thread1.Start();
+        //    Thread thread2 = new Thread(GetGoods);
+        //    thread2.Start();
+        //}
         private void DoubleClickExecute(object parameter)
         {
 
@@ -168,7 +166,6 @@ namespace OnlineShopOA1135.ViewModel
                 Signal();
             }
         }
-
         public async void GetCategories()
         {
             string arg = JsonSerializer.Serialize(Category);
@@ -203,7 +200,6 @@ namespace OnlineShopOA1135.ViewModel
                 return;
             }
         }
-
         internal async void ListCategoryClick()
         {
             var categories = CategoryList.Where(s => s.Check == true).Select(s => s.Id).ToList();

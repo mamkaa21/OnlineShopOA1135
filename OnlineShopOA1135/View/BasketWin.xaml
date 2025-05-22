@@ -47,20 +47,16 @@
             </ListBox.ItemsPanel>
             <ListBox.ItemTemplate >
                 <DataTemplate >
-                    <StackPanel Width="300" >
+                    <StackPanel Width="400" >
                         <TextBlock  Text="{Binding Goods.Title}"/>
                         <Image Source="{Binding Goods.Image}" Width="100"/>
                         <TextBlock  Text="{Binding Goods.Category.Title}"/>
-                           <Button Content="="/>
+                        <Label Content="{Binding Quantity}"/>
                     </StackPanel>
-                 
-                 
                 </DataTemplate>
-             
             </ListBox.ItemTemplate>
-        
         </ListBox>
-        
+        <!--<Button Grid.Column="4" Grid.Row=" 2" Content="+" Command="{Binding AddQuantity}" Background="White"/>-->
         <Button Grid.Column="1" Grid.Row="6" Content="delete" Background="White"/>
         <Button Grid.Column="3" Grid.Row="6" Content="заказать" Background="White" Command="{Binding StatusOrderFromActive}"/>
 

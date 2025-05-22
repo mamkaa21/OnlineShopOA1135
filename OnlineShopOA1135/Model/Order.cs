@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace OnlineShopOA1135.Model;
 
@@ -10,6 +11,8 @@ public partial class Order
     public int? UserId { get; set; }
 
     public string? Status { get; set; }
+
+   
 
     public DateTime? DateCreated { get; set; }
 

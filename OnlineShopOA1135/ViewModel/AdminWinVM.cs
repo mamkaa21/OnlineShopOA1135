@@ -21,7 +21,6 @@ namespace OnlineShopOA1135.ViewModel
                 Signal(nameof(Good));
             }
         }
-
         private List<Good> goodList { get; set; }
         public List<Good> GoodList
         {
@@ -42,7 +41,6 @@ namespace OnlineShopOA1135.ViewModel
                 Signal(nameof(Category));
             }
         }
-
         private List<Category> categoryList { get; set; }
         public List<Category> CategoryList
         {
@@ -51,6 +49,17 @@ namespace OnlineShopOA1135.ViewModel
             {
                 categoryList = value;
                 Signal(nameof(CategoryList));
+            }
+        }
+        private string _searchText;
+        public string SearchText
+        {
+            get { return _searchText; }
+            set
+            {
+                _searchText = value;
+                Signal("SearchText");
+
             }
         }
 
@@ -87,12 +96,10 @@ namespace OnlineShopOA1135.ViewModel
                     Signal();
                 }
                 else
-                    MessageBox.Show("выберите обьект для редактирования");
-                //проверка что обьект не пустой и только тогда открыть окно
+                    MessageBox.Show("выберите обьект для редактирования");           
             });
             DeleteGoods = new Command(async () =>
-            {
-                //запрос на удаление товара + проверка, что товар не пустой
+            {             
                 if (Good != null)
                 {
                     string arg = JsonSerializer.Serialize(Good);
@@ -114,9 +121,29 @@ namespace OnlineShopOA1135.ViewModel
                 else
                     MessageBox.Show("выберите обьект для удаления");
             });
-            FindGoodsByTitle = new Command(() =>
+            FindGoodsByTitle = new Command(async() =>
             {
-                    //запрос на поиск товара 
+                if (string.IsNullOrEmpty(SearchText))
+                {
+                    GetGoods();
+                }
+                else
+                {
+                    string arg = JsonSerializer.Serialize(SearchText);
+                    var responce = await HttpClientS.HttpClient.PostAsync($"User/FindGoods", new StringContent(arg, Encoding.UTF8, "application/json"));
+
+                    if (responce.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                    {
+                        var result = await responce.Content.ReadAsStringAsync();
+                        MessageBox.Show("error");
+                        return;
+                    }
+                    if (responce.StatusCode == System.Net.HttpStatusCode.OK)
+                    {
+                        GoodList = await responce.Content.ReadFromJsonAsync<List<Good>>();
+                        return;
+                    }
+                }
             });
             UserWinOpen = new Command(() =>
             {
@@ -126,20 +153,20 @@ namespace OnlineShopOA1135.ViewModel
             });
         }
 
-        public void timerStart()
-        {
-            timer = new DispatcherTimer();
-            timer.Tick += new EventHandler(timerTick);
-            timer.Interval = new TimeSpan(0, 0, 10);
-            timer.Start();
-        }
-        private void timerTick(object sender, EventArgs e) //к таймеру относится 
-        {
-            Thread thread1 = new Thread(GetCategories);
-            thread1.Start();
-            Thread thread2 = new Thread(GetGoods);
-            thread2.Start();
-        }
+        //public void timerStart()
+        //{
+        //    timer = new DispatcherTimer();
+        //    timer.Tick += new EventHandler(timerTick);
+        //    timer.Interval = new TimeSpan(0, 0, 10);
+        //    timer.Start();
+        //}
+        //private void timerTick(object sender, EventArgs e) //к таймеру относится 
+        //{
+        //    Thread thread1 = new Thread(GetCategories);
+        //    thread1.Start();
+        //    Thread thread2 = new Thread(GetGoods);
+        //    thread2.Start();
+        //}
 
 
         public async void GetCategories()
@@ -163,6 +190,26 @@ namespace OnlineShopOA1135.ViewModel
         {
             string arg = JsonSerializer.Serialize(Good);
             var responce = await HttpClientS.HttpClient.GetAsync($"Admin/getGoods");
+
+            if (responce.StatusCode == System.Net.HttpStatusCode.BadRequest)
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show(result);
+                return;
+            }
+            if (responce.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                GoodList = await responce.Content.ReadFromJsonAsync<List<Good>>();
+                return;
+            }
+        }
+
+        internal async void ListCategoryClick()
+        {
+            var categories = CategoryList.Where(s => s.Check == true).Select(s => s.Id).ToList();
+            string json = JsonSerializer.Serialize<List<int>>(categories);
+            var responce = await HttpClientS.HttpClient.PostAsync($"User/FiltGoodsByCat",
+                new StringContent(json, Encoding.UTF8, "application/json"));
 
             if (responce.StatusCode == System.Net.HttpStatusCode.BadRequest)
             {

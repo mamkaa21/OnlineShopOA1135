@@ -31,7 +31,6 @@
         </Grid.RowDefinitions>
         <TabControl x:Name="MainTabControl" Grid.Row="1" Grid.ColumnSpan="5" Grid.RowSpan="5" BorderBrush="White">
             <TabItem Header="Профиль">
-                
                 <StackPanel >
                     <Button Content="Редактировать"  Width="100" HorizontalAlignment="Right" Command="{Binding EditUserWin}"/>
 
