@@ -6,11 +6,10 @@
         xmlns:local="clr-namespace:OnlineShopOA1135.View"
         xmlns:m="clr-namespace:OnlineShopOA1135.Model"
         xmlns:vm="clr-namespace:OnlineShopOA1135.ViewModel"      
-                xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
-          DataContext="{DynamicResource vm}"
-    Title="UserMenu" Height="450" Width="800">
+        DataContext="{DynamicResource vm}"
+        Title="UserMenu" Height="450" Width="800">
     <Window.Resources>
         <vm:BasketWinVM x:Key ="vm"/>
     </Window.Resources>
@@ -23,7 +22,6 @@
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
-            
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -34,12 +32,12 @@
         </Grid.ColumnDefinitions>
         <Label Content="Logo" FontSize="40"/>
         
-        <ListBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Grid.RowSpan="5" 
+        <ListBox x:Name="Basket" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Grid.RowSpan="5" 
                  ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{Binding CrossList}" SelectedItem="{Binding Cross}">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">
                     <i:InvokeCommandAction Command="{Binding DoubleClickCommand}"
-                                        CommandParameter="{Binding ElementName=UserMenuLB, Path=SelectedItem}"/>
+                                        CommandParameter="{Binding ElementName=Basket, Path=SelectedItem}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
             <ListBox.ItemsPanel>

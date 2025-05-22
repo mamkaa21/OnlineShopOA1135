@@ -10,6 +10,10 @@ using System.Net.Http.Json;
 using System.Text.Json;
 using System.Windows;
 using System.Net.Http;
+using System.Windows.Controls;
+using System.Windows.Input;
+using System.Collections.ObjectModel;
+using System.Reflection.Metadata;
 
 namespace OnlineShopOA1135.ViewModel
 {
@@ -69,14 +73,12 @@ namespace OnlineShopOA1135.ViewModel
                 Signal(nameof(User));
             }
         }
-
-      
-
+   
         public Command Back { get; }
-        public Command UserWinOpen { get; }
+        public Command UserWinOpen { get; }   
         public Command StatusOrderFromActive { get; }
         public BasketWinVM()
-        {
+        {           
             GetUserData();
             Back = new Command(() =>
             {
@@ -84,33 +86,45 @@ namespace OnlineShopOA1135.ViewModel
                 CloseWindow(basketWin);
                 Signal();
             });
+            StatusOrderFromActive = new Command(() =>
+            {
+                if (CrossList.Count > 0)
+                {
+                    GetUserData();
+                    OrderFromActive(User.Id);
+                }
+                else
+                {
+                    // Показать сообщение (через MessageBox или сервис)
+                    MessageBox.Show("дистбокс пустой");
+                }
+            });
             UserWinOpen = new Command(() =>
             {
                 UserWin userWin = new UserWin();
                 userWin.Show();
                 Signal();
-            });
-            StatusOrderFromActive = new Command(async() => 
-            {
-                string arg = JsonSerializer.Serialize(Cross);
-                var responce = await HttpClientS.HttpClient.PutAsync($"User/StatusOrderFromActive", new StringContent(arg, Encoding.UTF8, "application/json"));
+            });        
+        }
+
+        private async void OrderFromActive(int userId)
+        {         
+               string arg = JsonSerializer.Serialize(CrossList);
+                var responce = await HttpClientS.HttpClient.PutAsync($"User/StatusOrderFromActive/{userId}", new StringContent(arg, Encoding.UTF8, "application/json"));
 
                 if (responce.StatusCode == System.Net.HttpStatusCode.BadRequest)
                 {
                     var result = await responce.Content.ReadAsStringAsync();
-                    MessageBox.Show("error");
+                    MessageBox.Show(result);
                     return;
                 }
                 if (responce.StatusCode == System.Net.HttpStatusCode.OK)
                 {
-                    GetGoodByOrder(User.Id);
+                    //GetGoodByOrder(User.Id);
                     MessageBox.Show("ok");
-
-                }
-            });
-
+                }          
+           
         }
-
         public async void GetGoodByOrder(int userId)
         {
             string arg = JsonSerializer.Serialize(Cross);

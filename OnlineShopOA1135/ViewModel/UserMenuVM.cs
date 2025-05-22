@@ -120,7 +120,7 @@ namespace OnlineShopOA1135.ViewModel
             {
                 if (string.IsNullOrEmpty(SearchText))
                 {
-                    Good = null;
+                    GetGoods();
                 }
                 else
                 {
