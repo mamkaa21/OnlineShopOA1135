@@ -57,8 +57,8 @@
             </ListBox.ItemTemplate>
         </ListBox>
         <!--<Button Grid.Column="4" Grid.Row=" 2" Content="+" Command="{Binding AddQuantity}" Background="White"/>-->
-        <Button Grid.Column="1" Grid.Row="6" Content="delete" Background="White"/>
-        <Button Grid.Column="3" Grid.Row="6" Content="заказать" Background="White" Command="{Binding StatusOrderFromActive}"/>
+        <!--<Button Grid.Column="1" Grid.Row="6" Content="Удалить" Background="White" Command="{Binding DeleteGoodByBasket}"/>-->
+        <Button Grid.Column="3" Grid.Row="6" Content="Заказать" Background="White" Command="{Binding StatusOrderFromActive}"/>
 
         <Button Content="Обновить" Grid.Row="1" Background="White" Command="{Binding Update}"/>
         <Button Content="👤" FontSize="40"  Grid.Column="4" Background="White" Command="{Binding UserWinOpen}"/>

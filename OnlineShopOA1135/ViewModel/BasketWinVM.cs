@@ -92,6 +92,7 @@ namespace OnlineShopOA1135.ViewModel
         public Command UserWinOpen { get; }   
         public Command StatusOrderFromActive { get; }
         public Command AddQuantity { get; }
+        public Command DeleteGoodByBasket { get; }
 
         private DispatcherTimer timer = null;
         public BasketWinVM()
@@ -119,6 +120,10 @@ namespace OnlineShopOA1135.ViewModel
                 UserWin userWin = new UserWin();
                 userWin.Show();
                 Signal();
+            });
+            DeleteGoodByBasket = new Command(() =>
+            { 
+            
             });
             //timerStart();
             //AddQuantity = new Command(async() =>
