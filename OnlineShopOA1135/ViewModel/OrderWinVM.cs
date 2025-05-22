@@ -3,6 +3,7 @@ using OnlineShopOA1135.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
@@ -81,6 +82,7 @@ namespace OnlineShopOA1135.ViewModel
         }
         public ICommand DoubleClickCommand { get; }
         public Command UserWinOpen { get; }
+        public Command StatusOrderFromDontActive { get; }
         public OrderWinVM()
         {
             GetOrderActive();
@@ -92,27 +94,27 @@ namespace OnlineShopOA1135.ViewModel
                 Signal();
             });
             DoubleClickCommand = new RelayCommand(DoubleClickExecute);
+            StatusOrderFromDontActive = new Command(async () =>
+            {
+                string arg = JsonSerializer.Serialize(CrossActive);
+                var responce = await HttpClientS.HttpClient.PutAsync($"User/StatusOrderFromDontActive", new StringContent(arg, Encoding.UTF8, "application/json"));
+
+                if (responce.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                {
+                    var result = await responce.Content.ReadAsStringAsync();
+                    MessageBox.Show("error");
+                    return;
+                }
+                if (responce.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    GetOrderActive();
+                    MessageBox.Show("ok");
+
+                }
+            });
         }
 
-        //public async void GetUserData()
-        //{
-        //    string arg = JsonSerializer.Serialize(User);
-        //    var responce = await HttpClientS.HttpClient.GetAsync($"User");
 
-        //    if (responce.StatusCode == System.Net.HttpStatusCode.BadRequest)
-        //    {
-        //        var result = await responce.Content.ReadAsStringAsync();
-        //        MessageBox.Show(result);
-        //        return;
-        //    }
-        //    if (responce.StatusCode == System.Net.HttpStatusCode.OK)
-        //    {
-        //        User = await responce.Content.ReadFromJsonAsync<User>();
-
-
-        //        return;
-        //    }
-        //}
         private void DoubleClickExecute(object parameter)
         {
 

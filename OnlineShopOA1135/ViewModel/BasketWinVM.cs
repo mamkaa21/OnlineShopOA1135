@@ -9,6 +9,7 @@ using OnlineShopOA1135.Model;
 using System.Net.Http.Json;
 using System.Text.Json;
 using System.Windows;
+using System.Net.Http;
 
 namespace OnlineShopOA1135.ViewModel
 {
@@ -71,15 +72,16 @@ namespace OnlineShopOA1135.ViewModel
 
       
 
-        public Command UserMenuOpen { get; }
+        public Command Back { get; }
         public Command UserWinOpen { get; }
+        public Command StatusOrderFromActive { get; }
         public BasketWinVM()
         {
             GetUserData();
-            UserMenuOpen = new Command(() =>
+            Back = new Command(() =>
             {
-                UserMenu userMenu = new UserMenu();
-                userMenu.Show();
+                BasketWin basketWin = new BasketWin();
+                CloseWindow(basketWin);
                 Signal();
             });
             UserWinOpen = new Command(() =>
@@ -88,6 +90,25 @@ namespace OnlineShopOA1135.ViewModel
                 userWin.Show();
                 Signal();
             });
+            StatusOrderFromActive = new Command(async() => 
+            {
+                string arg = JsonSerializer.Serialize(Cross);
+                var responce = await HttpClientS.HttpClient.PutAsync($"User/StatusOrderFromActive", new StringContent(arg, Encoding.UTF8, "application/json"));
+
+                if (responce.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                {
+                    var result = await responce.Content.ReadAsStringAsync();
+                    MessageBox.Show("error");
+                    return;
+                }
+                if (responce.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    GetGoodByOrder(User.Id);
+                    MessageBox.Show("ok");
+
+                }
+            });
+
         }
 
         public async void GetGoodByOrder(int userId)

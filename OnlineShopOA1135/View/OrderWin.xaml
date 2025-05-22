@@ -30,7 +30,7 @@ Title="OrderWin" Height="450" Width="800">
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        
+
         <Label Content=" Logo" FontSize="30"/>
         <!--<Button Content="home" Grid.Column="1" Background="White" Command="{Binding AdminWinOpen}"/>-->
         <Button Content="prfl" Grid.Column="4" Background="White" Command="{Binding UserWinOpen}"/>
@@ -51,12 +51,14 @@ Title="OrderWin" Height="450" Width="800">
                     </ListBox.ItemsPanel>
                     <ListBox.ItemTemplate >
                         <DataTemplate >
-                            <StackPanel Width="400" Height="100" > 
-                                <TextBlock  Text="{Binding Goods.Title}"/>
-                                <Image Source="{Binding Goods.Image}" Width="100"/>
-                               
-                                <TextBlock  Text="{Binding Goods.Category.Title}"/>
-                            </StackPanel>
+                            <Border BorderBrush="Black" BorderThickness="0 1 0 0 ">
+                                <StackPanel Width="790" Height="160">
+                                    <TextBlock  Text="{Binding Goods.Title}"/>
+                                    <Image Source="{Binding Goods.Image}" Width="100" Height="100" HorizontalAlignment="Left"/>
+                                    <TextBlock  Text="{Binding Goods.Category.Title}"/>
+                                    <Button Content="Выполнено" Margin="0 10 0 0 " Command="{Binding StatusOrderFromDontActive}"/>
+                                </StackPanel>
+                            </Border>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
@@ -76,11 +78,13 @@ Title="OrderWin" Height="450" Width="800">
                     </ListBox.ItemsPanel>
                     <ListBox.ItemTemplate >
                         <DataTemplate >
-                            <StackPanel Width="200" >
-                                <Image Source="{Binding Goods.Image}" Width="100"/>
-                                <TextBlock  Text="{Binding Goods.Title}"/>
-                                <TextBlock  Text="{Binding Goods.Category.Title}"/>
-                            </StackPanel>
+                            <Border BorderBrush="Black" BorderThickness="0 1 0 0 ">
+                                <StackPanel Width="790" Height="120" >
+                                    <TextBlock  Text="{Binding Goods.Title}"/>
+                                    <Image Source="{Binding Goods.Image}" Width="100" Height="100" HorizontalAlignment="Left"/>
+                                    <TextBlock  Text="{Binding Goods.Category.Title}"/>
+                                </StackPanel>
+                            </Border>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
