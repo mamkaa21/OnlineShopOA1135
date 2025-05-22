@@ -225,6 +225,7 @@ namespace OnlineShopOA1135.ViewModel
                 GoodList = await responce.Content.ReadFromJsonAsync<List<Good>>();
                 return;
             }
+            
         }
 
         UserMenu userMenu;

@@ -22,6 +22,7 @@
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -36,8 +37,10 @@
         <Button Grid.Column="6" Content="👤" FontSize="40" Command="{Binding UserWinOpen}" Background="White"/>
         
         <Label  Grid.Column="1" Grid.ColumnSpan="5" Content="{Binding Good.Title}"/>
-        <Image  Source="{Binding Good.Image}" Grid.Column="1" Grid.Row="1" Width="200" Height="200" Stretch="UniformToFill"/>
-        <TextBlock Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="4" Grid.RowSpan="2" Text="{Binding Good.Description}"/>
-        
+        <Image  Source="{Binding Good.Image}" Grid.Column="1" Grid.RowSpan="5" Grid.ColumnSpan="3" Grid.Row="1" Stretch="UniformToFill" />
+        <TextBlock Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="4" Grid.RowSpan="2" Text="{Binding Good.Description}"/>
+        <TextBlock Grid.Row="1" Grid.Column="4" Text="{Binding Good.Price}"/>
+        <TextBlock Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="2" Text="{Binding Good.Category.Title}"/>
+
     </Grid>
 </Window>
