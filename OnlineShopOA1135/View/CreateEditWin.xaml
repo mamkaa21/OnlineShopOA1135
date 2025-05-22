@@ -8,7 +8,7 @@
  xmlns:vm ="clr-namespace:OnlineShopOA1135.ViewModel"
 mc:Ignorable="d"
 DataContext="{DynamicResource vm}"
-        Title="CreateEditWin" Height="450" Width="800">
+        Title="Окно добавления и редактирования" Height="450" Width="800">
     <Window.Resources >
         <vm:CreateEditWinVM x:Key ="vm"/>
     </Window.Resources >

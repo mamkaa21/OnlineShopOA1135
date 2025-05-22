@@ -1,4 +1,5 @@
 ﻿using OnlineShopOA1135.Model;
+using OnlineShopOA1135.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,9 +23,81 @@ namespace OnlineShopOA1135.ViewModel
                 Signal(nameof(User));
             }
         }
+        private Order order { get; set; }
+        public Order Order
+        {
+            get => order;
+            set
+            {
+                order = value;
+                Signal(nameof(Order));
+            }
+        }
+        private List<Order> orderList { get; set; }
+        public List<Order> OrderList
+        {
+            get => orderList;
+            set
+            {
+                orderList = value;
+                Signal(nameof(OrderList));
+            }
+        }
+        private OrderGoodsCross crossActive { get; set; }
+        public OrderGoodsCross CrossActive
+        {
+            get => crossActive;
+            set
+            {
+                crossActive = value;
+                Signal(nameof(CrossActive));
+            }
+        }
+        private List<OrderGoodsCross> crossListActive { get; set; }
+        public List<OrderGoodsCross> CrossListActive
+        {
+            get => crossListActive;
+            set
+            {
+                crossListActive = value;
+                Signal(nameof(CrossListActive));
+            }
+        }
+        private OrderGoodsCross crossDontActive { get; set; }
+        public OrderGoodsCross CrossDontActive
+        {
+            get => crossDontActive;
+            set
+            {
+                crossDontActive = value;
+                Signal(nameof(CrossDontActive));
+            }
+        }
+        private List<OrderGoodsCross> crossListDontActive { get; set; }
+        public List<OrderGoodsCross> CrossListDontActive
+        {
+            get => crossListDontActive;
+            set
+            {
+                crossListDontActive = value;
+                Signal(nameof(CrossListDontActive));
+            }
+        }
+
+        public Command EditUserWin { get; }
+        public Command SaveChangedByUserWin { get; }
+
         public UserWinVM()
         {
             GetUserData();
+            EditUserWin = new Command(() =>
+            {
+
+            });
+            SaveChangedByUserWin = new Command(() =>
+            {
+
+            });
 
         }
         public async void  GetUserData()
@@ -43,6 +116,51 @@ namespace OnlineShopOA1135.ViewModel
                 User = await responce.Content.ReadFromJsonAsync<User>();
                 return;
             }
+        }
+        public async void GetOrderActive()
+        {
+            string arg = JsonSerializer.Serialize(CrossActive);
+            var responce = await HttpClientS.HttpClient.GetAsync($"User/GetOrderActive");
+
+            if (responce.StatusCode == System.Net.HttpStatusCode.BadRequest)
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show(result);
+                return;
+            }
+            if (responce.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                CrossListActive = await responce.Content.ReadFromJsonAsync<List<OrderGoodsCross>>();
+                return;
+            }
+        }
+
+        public async void GetOrderDontActive()
+        {
+            string arg = JsonSerializer.Serialize(CrossDontActive);
+            var responce = await HttpClientS.HttpClient.GetAsync($"User/GetOrderDontActive");
+
+            if (responce.StatusCode == System.Net.HttpStatusCode.BadRequest)
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show(result);
+                return;
+            }
+            if (responce.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                CrossListDontActive = await responce.Content.ReadFromJsonAsync<List<OrderGoodsCross>>();
+                return;
+            }
+        }
+
+        UserWin userWin;
+        internal void SetWindow(UserWin userWin)
+        {
+            this.userWin = userWin;
+        }
+        internal void CloseWindow(UserWin userWin)
+        {
+            this.userWin.Close();
         }
     }
 }
