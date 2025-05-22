@@ -54,13 +54,18 @@ namespace OnlineShopOA1135.ViewModel
                 Signal(nameof(ReviewGood));
             }
         }
-
+        public Command UserWinOpen { get; }
         public Command CloseGoodWin { get; }
 
       public GoodWinVM() 
       {
-          
-      }
+            UserWinOpen = new Command(() =>
+            {
+                UserWin userWin = new UserWin();
+                userWin.Show();
+                Signal();
+            });
+        }
 
 
 
