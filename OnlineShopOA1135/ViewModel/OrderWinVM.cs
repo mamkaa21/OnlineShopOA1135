@@ -36,43 +36,55 @@ namespace OnlineShopOA1135.ViewModel
             }
         }
 
-        private OrderGoodsCross cross { get; set; }
-        public OrderGoodsCross Cross
+        private OrderGoodsCross crossActive { get; set; }
+        public OrderGoodsCross CrossActive
         {
-            get => cross;
+            get => crossActive;
             set
             {
-                cross = value;
-                Signal(nameof(Cross));
+                crossActive = value;
+                Signal(nameof(CrossActive));
             }
         }
 
-        private List<OrderGoodsCross> crossList { get; set; }
-        public List<OrderGoodsCross> CrossList
+        private List<OrderGoodsCross> crossListActive { get; set; }
+        public List<OrderGoodsCross> CrossListActive
         {
-            get => crossList;
+            get => crossListActive;
             set
             {
-                crossList = value;
-                Signal(nameof(CrossList));
+                crossListActive = value;
+                Signal(nameof(CrossListActive));
             }
         }
 
-        private User user { get; set; }
-        public User User
+        private OrderGoodsCross crossDontActive { get; set; }
+        public OrderGoodsCross CrossDontActive
         {
-            get => user;
+            get => crossDontActive;
             set
             {
-                user = value;
-                Signal(nameof(User));
+                crossDontActive = value;
+                Signal(nameof(CrossDontActive));
+            }
+        }
+
+        private List<OrderGoodsCross> crossListDontActive { get; set; }
+        public List<OrderGoodsCross> CrossListDontActive
+        {
+            get => crossListDontActive;
+            set
+            {
+                crossListDontActive = value;
+                Signal(nameof(CrossListDontActive));
             }
         }
         public ICommand DoubleClickCommand { get; }
         public Command UserWinOpen { get; }
         public OrderWinVM()
         {
-
+            GetOrderActive();
+            GetOrderDontActive();
             UserWinOpen = new Command(() =>
             {
                 UserWin userWin = new UserWin();
@@ -82,25 +94,25 @@ namespace OnlineShopOA1135.ViewModel
             DoubleClickCommand = new RelayCommand(DoubleClickExecute);
         }
 
-        public async void GetUserData()
-        {
-            string arg = JsonSerializer.Serialize(User);
-            var responce = await HttpClientS.HttpClient.GetAsync($"User");
+        //public async void GetUserData()
+        //{
+        //    string arg = JsonSerializer.Serialize(User);
+        //    var responce = await HttpClientS.HttpClient.GetAsync($"User");
 
-            if (responce.StatusCode == System.Net.HttpStatusCode.BadRequest)
-            {
-                var result = await responce.Content.ReadAsStringAsync();
-                MessageBox.Show(result);
-                return;
-            }
-            if (responce.StatusCode == System.Net.HttpStatusCode.OK)
-            {
-                User = await responce.Content.ReadFromJsonAsync<User>();
+        //    if (responce.StatusCode == System.Net.HttpStatusCode.BadRequest)
+        //    {
+        //        var result = await responce.Content.ReadAsStringAsync();
+        //        MessageBox.Show(result);
+        //        return;
+        //    }
+        //    if (responce.StatusCode == System.Net.HttpStatusCode.OK)
+        //    {
+        //        User = await responce.Content.ReadFromJsonAsync<User>();
 
 
-                return;
-            }
-        }
+        //        return;
+        //    }
+        //}
         private void DoubleClickExecute(object parameter)
         {
 
@@ -112,6 +124,41 @@ namespace OnlineShopOA1135.ViewModel
             }
         }
 
+        public async void GetOrderActive()
+        {
+            string arg = JsonSerializer.Serialize(CrossActive);
+            var responce = await HttpClientS.HttpClient.GetAsync($"Admin/GetOrderActive");
+
+            if (responce.StatusCode == System.Net.HttpStatusCode.BadRequest)
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show(result);
+                return;
+            }
+            if (responce.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                CrossListActive = await responce.Content.ReadFromJsonAsync<List<OrderGoodsCross>>();
+                return;
+            }
+        }
+
+        public async void GetOrderDontActive()
+        {
+            string arg = JsonSerializer.Serialize(CrossDontActive);
+            var responce = await HttpClientS.HttpClient.GetAsync($"Admin/GetOrderDontActive");
+
+            if (responce.StatusCode == System.Net.HttpStatusCode.BadRequest)
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show(result);
+                return;
+            }
+            if (responce.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                CrossListDontActive = await responce.Content.ReadFromJsonAsync<List<OrderGoodsCross>>();
+                return;
+            }
+        }
 
         OrderWin orderWin;
         internal void SetWindow(OrderWin orderWin)

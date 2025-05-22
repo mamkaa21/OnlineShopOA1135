@@ -44,20 +44,23 @@
             </i:Interaction.Triggers>
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <StackPanel Orientation="Horizontal" IsItemsHost="True"/>
+                    <StackPanel Orientation="Vertical" IsItemsHost="True"/>
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
             <ListBox.ItemTemplate >
                 <DataTemplate >
-                    <StackPanel Width="200" >
-                        <Image Source="{Binding Goods.Image}" Width="100"/>
+                    <StackPanel Width="300" >
                         <TextBlock  Text="{Binding Goods.Title}"/>
+                        <Image Source="{Binding Goods.Image}" Width="100"/>
                         <TextBlock  Text="{Binding Goods.Category.Title}"/>
-                        <Button Content="+"/>
-                        <Button Content="-"/>
+                           <Button Content="="/>
                     </StackPanel>
+                 
+                 
                 </DataTemplate>
+             
             </ListBox.ItemTemplate>
+        
         </ListBox>
         
         <Button Grid.Column="1" Grid.Row="6" Content="delete" Background="White"/>

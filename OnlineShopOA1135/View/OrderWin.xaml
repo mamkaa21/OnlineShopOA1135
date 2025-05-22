@@ -32,12 +32,12 @@ Title="OrderWin" Height="450" Width="800">
         </Grid.ColumnDefinitions>
         
         <Label Content=" Logo" FontSize="30"/>
-        <Button Content="home" Grid.Column="1" Background="White" Command="{Binding AdminWinOpen}"/>
+        <!--<Button Content="home" Grid.Column="1" Background="White" Command="{Binding AdminWinOpen}"/>-->
         <Button Content="prfl" Grid.Column="4" Background="White" Command="{Binding UserWinOpen}"/>
 
         <TabControl Grid.Row="1" Grid.ColumnSpan="5" Grid.RowSpan="5">
             <TabItem  Header="активные">
-                <ListBox  ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{Binding OrderList}" SelectedItem="{Binding Order}">
+                <ListBox  ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{Binding CrossListActive}" SelectedItem="{Binding CrossActive}"                        >
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseDoubleClick">
                             <i:InvokeCommandAction Command="{Binding DoubleClickCommand}"
@@ -46,7 +46,32 @@ Title="OrderWin" Height="450" Width="800">
                     </i:Interaction.Triggers>
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <StackPanel Orientation="Horizontal" IsItemsHost="True"/>
+                            <StackPanel Orientation="Vertical" IsItemsHost="True"/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate >
+                        <DataTemplate >
+                            <StackPanel Width="400" Height="100" > 
+                                <TextBlock  Text="{Binding Goods.Title}"/>
+                                <Image Source="{Binding Goods.Image}" Width="100"/>
+                               
+                                <TextBlock  Text="{Binding Goods.Category.Title}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </TabItem>
+            <TabItem  Header="выполненные">
+                <ListBox  ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{Binding CrossListDontActive}" SelectedItem="{Binding CrossDontActive}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDoubleClick">
+                            <i:InvokeCommandAction Command="{Binding DoubleClickCommand}"
+             CommandParameter="{Binding ElementName=UserMenuLB, Path=SelectedItem}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Vertical" IsItemsHost="True"/>
                         </ItemsPanelTemplate>
                     </ListBox.ItemsPanel>
                     <ListBox.ItemTemplate >
@@ -55,15 +80,10 @@ Title="OrderWin" Height="450" Width="800">
                                 <Image Source="{Binding Goods.Image}" Width="100"/>
                                 <TextBlock  Text="{Binding Goods.Title}"/>
                                 <TextBlock  Text="{Binding Goods.Category.Title}"/>
-                                <Button Content="+"/>
-                                <Button Content="-"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
-            </TabItem>
-            <TabItem  Header="выполненные">
-
             </TabItem>
         </TabControl>
     </Grid>

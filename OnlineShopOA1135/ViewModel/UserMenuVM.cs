@@ -40,7 +40,6 @@ namespace OnlineShopOA1135.ViewModel
             }
         }
 
-
         private Category category { get; set; }
         public Category Category
         {
@@ -120,7 +119,7 @@ namespace OnlineShopOA1135.ViewModel
             {
                 if (string.IsNullOrEmpty(SearchText))
                 {
-                    Good = null; // Показываем все элементы
+                    Good = null;
                 }
                 else
                 {
@@ -138,9 +137,7 @@ namespace OnlineShopOA1135.ViewModel
                         GoodList = await responce.Content.ReadFromJsonAsync<List<Good>>();
                         return;
                     }
-
                 }
-
             });
         }
 
