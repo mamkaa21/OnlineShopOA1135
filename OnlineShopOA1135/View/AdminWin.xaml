@@ -81,9 +81,9 @@ DataContext="{DynamicResource vm}"
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        
+        <Button Content="Обновить" Command="{Binding Update}" Grid.Row="1" Background="White" BorderBrush="White"/>
         <Button Grid.Column="5" Grid.Row="5" Content="Удалить" Background="White" Command="{Binding DeleteCategory}"/>
-        <Button Grid.Column="6" Grid.Row="5" Content="Добавить" FontSize="20" Background="White" Command="{Binding CreateWinOpen}"/>
+        <Button Grid.Column="6" Grid.Row="5" Content="Добавить" Background="White" Command="{Binding CreateWinOpen}"/>
 
         <TextBox Grid.Column="2" Grid.ColumnSpan="3" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"  />
         <Button Content="🔍" Grid.Column="5" Background="White" FontSize="40" BorderThickness="0" Command="{Binding FindGoodsByTitle}"/>

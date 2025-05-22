@@ -33,7 +33,7 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <!--<Button Content="Home" FontSize="25" Command="{Binding CloseGoodWin}" Background="White"/>-->
-        <Button Grid.Column="6" Content="prfl" Command="{Binding UserWinOpen}" Background="White"/>
+        <Button Grid.Column="6" Content="👤" FontSize="40" Command="{Binding UserWinOpen}" Background="White"/>
         
         <Label  Grid.Column="1" Grid.ColumnSpan="5" Content="{Binding Good.Title}"/>
         <Image  Source="{Binding Good.Image}" Grid.Column="1" Grid.Row="1" Width="200" Height="200" Stretch="UniformToFill"/>

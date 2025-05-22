@@ -54,14 +54,15 @@
                         <Image Source="{Binding Image}" Width="200"/>
                         <TextBlock Text="{Binding Description}"/>
                         <TextBlock  Text="{Binding Category.Title}"/>
-                        <TextBlock Text="{Binding Rating}"/>
+                        <TextBlock  Text="{Binding Price}"/>
 
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+        
         <Label Content="logo" FontSize="33"/>
-        <Button Content="home" Grid.Row="1" Background="White" BorderThickness="0"/>
+        <Button Content="Обновить" Command="{Binding Update}" Grid.Row="1" Background="White" BorderBrush="White"/>
 
         <ListBox Grid.Row="2" Grid.Column="5" Grid.ColumnSpan="2" Grid.RowSpan="3" ItemsSource="{Binding CategoryList}" SelectedItem="{Binding Category}">
             <ListBox.ItemsPanel>

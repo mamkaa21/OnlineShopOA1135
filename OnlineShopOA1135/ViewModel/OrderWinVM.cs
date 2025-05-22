@@ -83,6 +83,7 @@ namespace OnlineShopOA1135.ViewModel
         public ICommand DoubleClickCommand { get; }
         public Command UserWinOpen { get; }
         public Command StatusOrderFromDontActive { get; }
+        public Command Update { get; }
         public OrderWinVM()
         {
             GetOrderActive();
@@ -111,6 +112,11 @@ namespace OnlineShopOA1135.ViewModel
                     MessageBox.Show("ok");
 
                 }
+            });
+            Update = new Command(() =>
+            {
+                GetOrderActive();
+                GetOrderDontActive();
             });
         }
 

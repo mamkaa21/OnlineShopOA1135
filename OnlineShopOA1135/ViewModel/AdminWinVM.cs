@@ -69,6 +69,9 @@ namespace OnlineShopOA1135.ViewModel
         public Command DeleteGoods { get; }
         public Command FindGoodsByTitle { get; }
         public Command UserWinOpen { get; }
+        public Command Update { get; }
+
+        public Command DeleteCategory { get; }
 
         private DispatcherTimer timer = null;
         public AdminWinVM()
@@ -77,7 +80,7 @@ namespace OnlineShopOA1135.ViewModel
             GetGoods();
             OrderWinOpen = new Command(() =>
             {
-                OrderWin orderWin = new OrderWin();            
+                OrderWin orderWin = new OrderWin();
                 orderWin.Show();
                 Signal();
             });
@@ -96,10 +99,10 @@ namespace OnlineShopOA1135.ViewModel
                     Signal();
                 }
                 else
-                    MessageBox.Show("выберите обьект для редактирования");           
+                    MessageBox.Show("выберите обьект для редактирования");
             });
             DeleteGoods = new Command(async () =>
-            {             
+            {
                 if (Good != null)
                 {
                     string arg = JsonSerializer.Serialize(Good);
@@ -116,12 +119,13 @@ namespace OnlineShopOA1135.ViewModel
                         //мессаджбокс с подтверждением да нет хз как надо думать
 
                         Signal(nameof(Good));
+                        GetGoods();
                     }
                 }
                 else
                     MessageBox.Show("выберите обьект для удаления");
             });
-            FindGoodsByTitle = new Command(async() =>
+            FindGoodsByTitle = new Command(async () =>
             {
                 if (string.IsNullOrEmpty(SearchText))
                 {
@@ -151,22 +155,53 @@ namespace OnlineShopOA1135.ViewModel
                 userWin.Show();
                 Signal();
             });
+            DeleteCategory = new Command(async () =>
+            {
+                if (Category != null)
+                {
+                    string arg = JsonSerializer.Serialize(Category);
+                    var responce = await HttpClientS.HttpClient.PostAsync($"Admin/DeleteCategories", new StringContent(arg, Encoding.UTF8, "application/json"));
+
+                    if (responce.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                    {
+                        var result = await responce.Content.ReadAsStringAsync();
+                        MessageBox.Show("error");
+                        return;
+                    }
+                    if (responce.StatusCode == System.Net.HttpStatusCode.OK)
+                    {
+                        //мессаджбокс с подтверждением да нет хз как надо думать
+
+                        Signal(nameof(Category));
+                        GetCategories();
+                    }
+                }
+                else
+                    MessageBox.Show("выберите обьект для удаления");
+
+            });
+            Update = new Command(() =>
+            {
+                GetCategories();
+                GetGoods();
+            });
+            //timerStart();
         }
 
-        //public void timerStart()
-        //{
-        //    timer = new DispatcherTimer();
-        //    timer.Tick += new EventHandler(timerTick);
-        //    timer.Interval = new TimeSpan(0, 0, 10);
-        //    timer.Start();
-        //}
-        //private void timerTick(object sender, EventArgs e) //к таймеру относится 
-        //{
-        //    Thread thread1 = new Thread(GetCategories);
-        //    thread1.Start();
-        //    Thread thread2 = new Thread(GetGoods);
-        //    thread2.Start();
-        //}
+        public void timerStart()
+        {
+            timer = new DispatcherTimer();
+            timer.Tick += new EventHandler(timerTick);
+            timer.Interval = new TimeSpan(0, 0, 10);
+            timer.Start();
+        }
+        private void timerTick(object sender, EventArgs e) //к таймеру относится 
+        {
+            Thread thread1 = new Thread(GetCategories);
+            thread1.Start();
+            Thread thread2 = new Thread(GetGoods);
+            thread2.Start();
+        }
 
 
         public async void GetCategories()

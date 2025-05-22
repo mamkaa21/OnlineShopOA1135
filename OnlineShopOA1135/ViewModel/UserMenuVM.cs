@@ -78,8 +78,9 @@ namespace OnlineShopOA1135.ViewModel
         public ICommand DoubleClickCommand { get; private set; }
         public Command AddToBasket { get; }
         public Command FindGood { get; }
+        public Command Update { get; }
 
-        //private DispatcherTimer timer = null;
+        private DispatcherTimer timer = null;
 
         public UserMenuVM()
         {
@@ -99,23 +100,29 @@ namespace OnlineShopOA1135.ViewModel
                 Signal();
             });
             DoubleClickCommand = new RelayCommand(DoubleClickExecute);
-            AddToBasket = new Command(async () =>
-            {
-                string arg = JsonSerializer.Serialize(Good);
-                var responce = await HttpClientS.HttpClient.PostAsync($"User/AddToBasket", new StringContent(arg, Encoding.UTF8, "application/json"));
+            //AddToBasket = new Command(async () =>
+            //{
+            //    string arg = JsonSerializer.Serialize(Good);
+            //    var responce = await HttpClientS.HttpClient.PostAsync($"User/AddToBasket", new StringContent(arg, Encoding.UTF8, "application/json"));
 
-                if (responce.StatusCode == System.Net.HttpStatusCode.BadRequest)
-                {
-                    var result = await responce.Content.ReadAsStringAsync();
-                    MessageBox.Show("error");
-                    return;
-                }
-                if (responce.StatusCode == System.Net.HttpStatusCode.OK)
-                {
-                    
-                    MessageBox.Show("ok");
-                }
+            //    if (responce.StatusCode == System.Net.HttpStatusCode.BadRequest)
+            //    {
+            //        var result = await responce.Content.ReadAsStringAsync();
+            //        MessageBox.Show("error");
+            //        return;
+            //    }
+            //    if (responce.StatusCode == System.Net.HttpStatusCode.OK)
+            //    {
+
+            //        MessageBox.Show("ok");
+            //    }
+            //});
+            Update = new Command(() =>
+            {
+                GetCategories();
+                GetGoods();
             });
+
             FindGood = new Command(async () =>
             {
                 if (string.IsNullOrEmpty(SearchText))
@@ -142,20 +149,20 @@ namespace OnlineShopOA1135.ViewModel
             });
         }
 
-        //public void timerStart()
-        //{
-        //    timer = new DispatcherTimer();
-        //    timer.Tick += new EventHandler(timerTick);
-        //    timer.Interval = new TimeSpan(0, 0, 3);
-        //    timer.Start();
-        //}
-        //private void timerTick(object sender, EventArgs e) //к таймеру относится 
-        //{
-        //    Thread thread1 = new Thread(GetCategories);
-        //    thread1.Start();
-        //    Thread thread2 = new Thread(GetGoods);
-        //    thread2.Start();
-        //}
+        public void timerStart()
+        {
+            timer = new DispatcherTimer();
+            timer.Tick += new EventHandler(timerTick);
+            timer.Interval = new TimeSpan(0, 0, 3);
+            timer.Start();
+        }
+        private void timerTick(object sender, EventArgs e) //к таймеру относится 
+        {
+            Thread thread1 = new Thread(GetCategories);
+            thread1.Start();
+            Thread thread2 = new Thread(GetGoods);
+            thread2.Start();
+        }
         private void DoubleClickExecute(object parameter)
         {
 

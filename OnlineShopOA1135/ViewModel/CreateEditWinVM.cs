@@ -105,7 +105,7 @@ namespace OnlineShopOA1135.ViewModel
                 }
                 if (responce.StatusCode == System.Net.HttpStatusCode.OK)
                 {
-                    MessageBox.Show("ok");
+                    Signal(nameof(Good));
                 }
 
             });
@@ -122,7 +122,7 @@ namespace OnlineShopOA1135.ViewModel
                 }
                 if (responce.StatusCode == System.Net.HttpStatusCode.OK)
                 {
-                    MessageBox.Show("ok");
+                    Signal(nameof(Good));
                 }
 
             });
@@ -139,7 +139,7 @@ namespace OnlineShopOA1135.ViewModel
                 }
                 if (responce.StatusCode == System.Net.HttpStatusCode.OK)
                 {
-                    MessageBox.Show("ok");
+                    Signal(nameof(Category));
                 }
 
             });
@@ -156,7 +156,7 @@ namespace OnlineShopOA1135.ViewModel
                 }
                 if (responce.StatusCode == System.Net.HttpStatusCode.OK)
                 {
-                    MessageBox.Show("ok");
+                    Signal(nameof(Category));
                 }
 
             });
@@ -173,7 +173,7 @@ namespace OnlineShopOA1135.ViewModel
                 }
                 if (responce.StatusCode == System.Net.HttpStatusCode.OK)
                 {
-                    MessageBox.Show("ok");
+                    Signal(nameof(User));
                 }
 
             });
@@ -190,7 +190,7 @@ namespace OnlineShopOA1135.ViewModel
                 }
                 if (responce.StatusCode == System.Net.HttpStatusCode.OK)
                 {
-                    MessageBox.Show("ok");
+                    Signal(nameof(User));
                 }
 
             });

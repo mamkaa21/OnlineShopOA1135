@@ -15,6 +15,7 @@ using System.Windows.Input;
 using System.Collections.ObjectModel;
 using System.Reflection.Metadata;
 using System.Data.Common;
+using System.Windows.Threading;
 
 namespace OnlineShopOA1135.ViewModel
 {
@@ -87,18 +88,18 @@ namespace OnlineShopOA1135.ViewModel
             }
         }
    
-        public Command Back { get; }
+        public Command Update { get; }
         public Command UserWinOpen { get; }   
         public Command StatusOrderFromActive { get; }
         public Command AddQuantity { get; }
+
+        private DispatcherTimer timer = null;
         public BasketWinVM()
         {           
             GetUserData();
-            Back = new Command(() =>
+            Update = new Command(() =>
             {
-                BasketWin basketWin = new BasketWin();
-                CloseWindow(basketWin);
-                Signal();
+                GetUserData();
             });
             StatusOrderFromActive = new Command(() =>
             {
@@ -119,6 +120,7 @@ namespace OnlineShopOA1135.ViewModel
                 userWin.Show();
                 Signal();
             });
+            //timerStart();
             //AddQuantity = new Command(async() =>
             //{
             //    string arg = JsonSerializer.Serialize(CrossList);
@@ -137,6 +139,21 @@ namespace OnlineShopOA1135.ViewModel
             //    }
             //});
         }
+
+        public void timerStart()
+        {
+            timer = new DispatcherTimer();
+            timer.Tick += new EventHandler(timerTick);
+            timer.Interval = new TimeSpan(0, 0, 10);
+            timer.Start();
+        }
+        private void timerTick(object sender, EventArgs e) //к таймеру относится 
+        {
+            Thread thread1 = new Thread(GetUserData);
+            thread1.Start();
+            
+        }
+
 
         private async void OrderFromActive(int userId)
         {         
@@ -193,15 +210,15 @@ namespace OnlineShopOA1135.ViewModel
             }
         }
        
-        public void AddCount(object j)
-        {
-            if (CrossList != null)
-            {
-                  ++Cross.Quantity;
-                  Signal();
-            }
+        //public void AddCount(object j)
+        //{
+        //    if (CrossList != null)
+        //    {
+        //          ++Cross.Quantity;
+        //          Signal();
+        //    }
          
-        }
+        //}
 
         BasketWin basketWin;
         internal void SetWindow(BasketWin basketWin)

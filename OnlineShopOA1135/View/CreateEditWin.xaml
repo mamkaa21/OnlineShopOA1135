@@ -61,7 +61,7 @@ DataContext="{DynamicResource vm}"
                     <Label Content="Цена" Grid.Row="2"/>
                     <TextBox Text="{Binding Good.Price}" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" BorderBrush="Black"/>
                     <Label Content="Категория" Grid.Row="3"/>
-                    <ComboBox ItemsSource="{Binding CategoryList}" SelectedItem="{Binding Category}" DisplayMemberPath="{Binding Category.Title}" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="3"/>
+                    <ComboBox ItemsSource="{Binding CategoryList}" SelectedItem="{Binding Category}" DisplayMemberPath="{Binding Category.Title}" SelectedValuePath="{Binding Good.Category}"  Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="3"/>
 
                     <Label Grid.Column="3" Grid.Row="1" Content=" image"/>
                     <Image Grid.Column="3" Grid.Row="2" Grid.RowSpan="5" Source="{Binding Good.Image}" Width="229" Stretch="Fill" Grid.ColumnSpan="2"  />

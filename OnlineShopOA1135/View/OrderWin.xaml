@@ -32,8 +32,8 @@ Title="Окно заказов" Height="450" Width="800">
         </Grid.ColumnDefinitions>
 
         <Label Content=" Logo" FontSize="30"/>
-        <!--<Button Content="home" Grid.Column="1" Background="White" Command="{Binding AdminWinOpen}"/>-->
-        <Button Content="prfl" Grid.Column="4" Background="White" Command="{Binding UserWinOpen}"/>
+        <Button Content="Обновить" Grid.Column="1" Background="White" Command="{Binding Update}"/>
+        <Button Content="👤" FontSize="40" Grid.Column="4" Background="White" Command="{Binding UserWinOpen}" BorderBrush="White"/>
 
         <TabControl Grid.Row="1" Grid.ColumnSpan="5" Grid.RowSpan="5">
             <TabItem  Header="активные">
