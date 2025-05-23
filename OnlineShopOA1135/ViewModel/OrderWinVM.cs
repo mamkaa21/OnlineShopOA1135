@@ -120,7 +120,7 @@ namespace OnlineShopOA1135.ViewModel
             });
         }
 
-
+        
         private void DoubleClickExecute(object parameter)
         {
 

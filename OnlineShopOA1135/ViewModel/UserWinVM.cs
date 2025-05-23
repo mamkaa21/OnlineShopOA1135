@@ -106,8 +106,7 @@ namespace OnlineShopOA1135.ViewModel
         public UserWinVM()
         {
             GetUserData();
-            GetOrderActive();
-            GetOrderDontActive();
+          
             EditUserWin = new RelayCommand(EnableListBox);
             SaveChangedByUserWin = new Command( async() =>
             {
@@ -145,13 +144,15 @@ namespace OnlineShopOA1135.ViewModel
             if (responce.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 User = await responce.Content.ReadFromJsonAsync<User>();
+                GetOrderActive(User.Id);
+                GetOrderDontActive(User.Id);
                 return;
             }
         }
-        public async void GetOrderActive()
+        public async void GetOrderActive(int userId)
         {
             string arg = JsonSerializer.Serialize(CrossActive);
-            var responce = await HttpClientS.HttpClient.GetAsync($"User/GetOrderActive");
+            var responce = await HttpClientS.HttpClient.GetAsync($"User/GetOrderActive/{userId}");
 
             if (responce.StatusCode == System.Net.HttpStatusCode.BadRequest)
             {
@@ -166,10 +167,10 @@ namespace OnlineShopOA1135.ViewModel
             }
         }
 
-        public async void GetOrderDontActive()
+        public async void GetOrderDontActive(int userId)
         {
             string arg = JsonSerializer.Serialize(CrossDontActive);
-            var responce = await HttpClientS.HttpClient.GetAsync($"User/GetOrderDontActive");
+            var responce = await HttpClientS.HttpClient.GetAsync($"User/GetOrderDontActive/{userId}");
 
             if (responce.StatusCode == System.Net.HttpStatusCode.BadRequest)
             {
